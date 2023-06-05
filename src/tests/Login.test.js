@@ -9,14 +9,14 @@ describe('Testando a funcionalidade da page Login', () => {
     const email = 'user@user.com';
     const { history } = renderWithRouter(<App />);
     expect(history.location.pathname).toBe('/');
-    const [emailInput, passwordInput] = screen.getAllByRole('textbox');
+    const emailInput = screen.getByLabelText(/email/i);
+    const passwordInput = screen.getByLabelText(/password/i);
     const button = screen.getByRole('button');
     expect(button).toBeDisabled();
     userEvent.type(emailInput, email);
     userEvent.type(passwordInput, '1234567');
     expect(emailInput.value).toBe(email);
     expect(button).not.toBeDisabled();
-    console.log(button);
     act(() => {
       userEvent.click(button);
     });

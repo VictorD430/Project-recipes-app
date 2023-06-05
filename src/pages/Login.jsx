@@ -21,16 +21,24 @@ export default function Login() {
   return (
     <div>
       <form onSubmit={ handleSubmit }>
+        <label htmlFor="email">
+          Email
+        </label>
         <input
           data-testid="email-input"
           type="email"
+          id="email"
           value={ email }
           onChange={ ({ target: { value } }) => setEmail(value) }
           disabled={ false }
         />
+        <label htmlFor="password">
+          Password
+        </label>
         <input
           data-testid="password-input"
           type="password"
+          id="password"
           value={ password }
           disabled={ false }
           onChange={ ({ target: { value } }) => setPassword(value) }
