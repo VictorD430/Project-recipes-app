@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import isEmail from 'validator/lib/isEmail';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [disabled, setDisabled] = useState(true);
   const history = useHistory();
-  const regexp = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+?$/i;
   const handleSubmit = () => {
     localStorage.setItem('user', JSON.stringify({ email }));
     history.push('/meals');
   };
 
   useEffect(() => {
-    const validateButton = () => setDisabled(!regexp
-      .test(email) || password.length <= Number('6'));
+    const validateButton = () => setDisabled(!isEmail(email)
+    || password.length <= Number('6'));
     validateButton();
-  }, [email, regexp, password]);
+  }, [email, password]);
 
   return (
     <div>
