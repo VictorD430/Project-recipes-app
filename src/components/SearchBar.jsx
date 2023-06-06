@@ -15,40 +15,40 @@ export default function SearchBar() {
 
   const makeFetch = async () => {
     let data;
-    if (searchValue.length === 0) {
+    if ((searchValue.length === 0
+      || searchValue.length > 1)
+      && searchBy === 'by-first-letter') {
       global.alert('Your search must have only 1 (one) character');
       return;
     }
+
     switch (searchBy) {
     case 'by-name':
       if (location.pathname === '/meals') {
         data = await getMealsAPI(`search.php?s=${searchValue}`);
-        data = { meals: data };
+        data = { meals: data.meals };
       } else {
         data = await getDrinksAPI(`search.php?s=${searchValue}`);
-        data = { drinks: data };
+        data = { drinks: data.drinks };
       }
       break;
     case 'by-ingredient':
       if (location.pathname === '/meals') {
         data = await getMealsAPI(`filter.php?i=${searchValue}`);
-        data = { meals: data };
+        data = { meals: data.meals };
         getMealsAPI(`filter.php?i=${searchValue}`);
       } else {
-        /* data = await getDrinksAPI(`filter.php?i=${searchValue}`);
-        data = { drinks: data }; */
-        getDrinksAPI(`filter.php?i=${searchValue}`);
+        data = await getDrinksAPI(`filter.php?i=${searchValue}`);
+        data = { drinks: data.drinks };
       }
       break;
     default:
       if (location.pathname === '/meals') {
         data = await getMealsAPI(`search.php?f=${searchValue}`);
-        data = { meals: data };
-        getMealsAPI(`search.php?f=${searchValue}`);
+        data = { meals: data.meals };
       } else {
-        /* data = await getDrinksAPI(`search.php?f=${searchValue}`);
-        data = { drinks: data }; */
-        getDrinksAPI(`search.php?f=${searchValue}`);
+        data = await getDrinksAPI(`search.php?f=${searchValue}`);
+        data = { drinks: data.drinks };
       }
       break;
     }

@@ -2,11 +2,11 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import App from '../App';
-import { renderWithRouter } from './helpers/renderWithRouterAndRedux';
+import { renderWithRouterAndRedux } from './helpers/renderWithRouterAndRedux';
 
 describe('Testando a funcionalidade do Header', () => {
   it('Testando suas renderizações', () => {
-    const { history } = renderWithRouter(<App />, { initialEntries: ['/meals'] });
+    const { history } = renderWithRouterAndRedux(<App />, { initialEntries: ['/meals'] });
     const profileIcon = screen.getByRole('img', { name: /profile-icon/i });
     screen.getByRole('img', { name: /search-icon/i });
     screen.getByText(/meals/i);
