@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom/cjs/react-router-dom.min';
 import ProfileIcon from './ProfileIcon';
-import Search from './Search';
+import SearchBar from './SearchBar';
 
 export default function Header() {
   return (
@@ -14,7 +14,7 @@ export default function Header() {
             path="/meals"
             render={ () => (
               <>
-                <Search />
+                <SearchBar />
                 <h2 data-testid="page-title">Meals</h2>
               </>
             ) }
@@ -24,7 +24,7 @@ export default function Header() {
             path="/drinks"
             render={ () => (
               <>
-                <Search />
+                <SearchBar />
                 <h2 data-testid="page-title">Drinks</h2>
               </>
             ) }
