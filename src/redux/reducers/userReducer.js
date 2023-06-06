@@ -6,8 +6,8 @@ const INITIAL_STATE = {
   },
 };
 
-const user = (state = INITIAL_STATE, { type, payload }) => {
-  switch (type) {
+const user = (state = INITIAL_STATE, action) => {
+  switch (action.type) {
   default:
     return state;
   }
