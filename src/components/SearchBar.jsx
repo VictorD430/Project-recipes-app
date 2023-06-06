@@ -8,7 +8,6 @@ import { getMealsAPI, getDrinksAPI } from '../services/fetchAPI';
 export default function SearchBar() {
   const dispatch = useDispatch();
   const { location } = useHistory();
-
   const [letsSearch, setLetsSearch] = useState(false);
   const [searchBy, setSearchBy] = useState('by-name');
   const [searchValue, setSearchValue] = useState('');
