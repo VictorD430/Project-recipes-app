@@ -18,7 +18,7 @@ export default function Profile() {
   };
 
   const favorites = () => {
-    history.push('/favorites-recipes');
+    history.push('/favorite-recipes');
   };
 
   return (
