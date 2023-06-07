@@ -4,7 +4,7 @@ import { Route, Switch } from 'react-router-dom/cjs/react-router-dom.min';
 import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './pages/Login';
-import Home from './pages/Home';
+import Recipes from './pages/Recipes';
 import Recipe from './pages/Recipe';
 import InProgress from './pages/InProgress';
 import Profile from './pages/Profile';
@@ -25,8 +25,8 @@ function App() {
       <Switch>
         <Route exact path="/" component={ Login } />
 
-        <Route exact path="/meals" component={ Home } />
-        <Route exact path="/drinks" component={ Home } />
+        <Route exact path="/meals" component={ Recipes } />
+        <Route exact path="/drinks" component={ Recipes } />
 
         <Route exact path="/meals/:recipeId" component={ Recipe } />
         <Route exact path="/drinks/:recipeId" component={ Recipe } />
