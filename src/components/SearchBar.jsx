@@ -7,23 +7,16 @@ import { getMealsAPI, getDrinksAPI } from '../services/fetchAPI';
 
 export default function SearchBar() {
   const dispatch = useDispatch();
-  const { location } = useHistory();
+  const history = useHistory();
   const [letsSearch, setLetsSearch] = useState(false);
   const [searchBy, setSearchBy] = useState('by-name');
   const [searchValue, setSearchValue] = useState('');
 
-  const makeFetch = async () => {
+  const selectFetch = async () => {
     let data;
-    if ((searchValue.length === 0
-      || searchValue.length > 1)
-      && searchBy === 'by-first-letter') {
-      global.alert('Your search must have only 1 (one) character');
-      return;
-    }
-
     switch (searchBy) {
     case 'by-name':
-      if (location.pathname === '/meals') {
+      if (history.location.pathname === '/meals') {
         data = await getMealsAPI(`search.php?s=${searchValue}`);
         data = { meals: data.meals };
       } else {
@@ -32,7 +25,7 @@ export default function SearchBar() {
       }
       break;
     case 'by-ingredient':
-      if (location.pathname === '/meals') {
+      if (history.location.pathname === '/meals') {
         data = await getMealsAPI(`filter.php?i=${searchValue}`);
         data = { meals: data.meals };
         getMealsAPI(`filter.php?i=${searchValue}`);
@@ -42,7 +35,7 @@ export default function SearchBar() {
       }
       break;
     default:
-      if (location.pathname === '/meals') {
+      if (history.location.pathname === '/meals') {
         data = await getMealsAPI(`search.php?f=${searchValue}`);
         data = { meals: data.meals };
       } else {
@@ -50,6 +43,29 @@ export default function SearchBar() {
         data = { drinks: data.drinks };
       }
       break;
+    }
+    return data;
+  };
+
+  const makeFetch = async () => {
+    if ((searchValue.length === 0 || searchValue.length > 1)
+      && searchBy === 'by-first-letter') {
+      global.alert('Your search must have only 1 (one) character');
+      return;
+    }
+    const data = await selectFetch();
+
+    if (data[Object.keys(data)[0]] === null) {
+      global.alert('Sorry, we haven\'t found any recipes for these filters.');
+      return;
+    }
+    if (data[Object.keys(data)[0]].length === 1) {
+      if ('meals' in data) {
+        history.push(`/meals/${data.meals[0].idMeal}`);
+        return;
+      }
+      history.push(`/drinks/${data.drinks[0].idDrink}`);
+      return;
     }
     dispatch(saveRecipes(data));
   };
