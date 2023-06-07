@@ -1,21 +1,27 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Route, Switch, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import Header from '../components/Header';
 import { getDrinksAPI, getMealsAPI } from '../services/fetchAPI';
+import { saveRecipes } from '../redux/actions';
 
 export default function Recipes() {
   const { recipes: { meals, drinks } } = useSelector((state) => state);
   const [categories, setCategories] = useState([]);
   const history = useHistory();
+  const dispatch = useDispatch();
   useEffect(() => {
     const makeFetch = async () => {
       if (history.location.pathname === '/meals') {
         const apiCategories = await getMealsAPI('list.php?c=list');
-        setCategories(apiCategories.meals);
+        const apiFirstMeals = await getMealsAPI('search.php?s=');
+        dispatch(saveRecipes(apiFirstMeals));
+        setCategories(apiCategories.meals)
         return;
       }
       const apiCategories = await getDrinksAPI('list.php?c=list');
+      const apiFirstDrinks = await getDrinksAPI('search.php?s=');
+      dispatch(saveRecipes(apiFirstDrinks));
       setCategories(apiCategories.drinks);
     };
     makeFetch();
@@ -52,7 +58,7 @@ export default function Recipes() {
                       {meal.strMeal}
                     </p>
                     <img
-                      width={ 200 }
+                      width={ 10 }
                       data-testid={ `${index}-card-img` }
                       src={ meal.strMealThumb }
                       alt={ meal.strMeal }
@@ -75,7 +81,7 @@ export default function Recipes() {
                       {drink.strDrink}
                     </p>
                     <img
-                      width={ 200 }
+                      width={ 10 }
                       data-testid={ `${index}-card-img` }
                       src={ drink.strDrinkThumb }
                       alt={ drink.strDrink }
