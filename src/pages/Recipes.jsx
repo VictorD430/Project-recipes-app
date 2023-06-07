@@ -12,18 +12,26 @@ export default function Recipes() {
     const makeFetch = async () => {
       if (history.location.pathname === '/meals') {
         const apiCategories = await getMealsAPI('list.php?c=list');
-        setCategories(apiCategories);
+        setCategories(apiCategories.meals);
         return;
       }
       const apiCategories = await getDrinksAPI('list.php?c=list');
-      setCategories(apiCategories);
+      setCategories(apiCategories.drinks);
     };
     makeFetch();
   }, [setCategories, history]);
-  console.log(categories);
   return (
     <>
       <Header />
+      {categories.map(({ strCategory }, i) => (
+        i < +'5' && (
+          <button
+            key={ strCategory }
+            data-testid={ `${strCategory}-category-filter` }
+          >
+            {strCategory}
+          </button>
+        )))}
       <main>
         <ul>
 
