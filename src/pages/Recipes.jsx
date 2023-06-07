@@ -34,10 +34,33 @@ export default function Recipes() {
           <button
             key={ strCategory }
             data-testid={ `${strCategory}-category-filter` }
+            onClick={async () => {
+              if (history.location.pathname === '/meals') {
+                const categoryMeals = await getMealsAPI(`filter.php?c=${strCategory}`);
+                dispatch(saveRecipes(categoryMeals));
+                return;
+              }
+              const categoryDrinks = await getDrinksAPI(`filter.php?c=${strCategory}`);
+              dispatch(saveRecipes(categoryDrinks));
+            }}
           >
             {strCategory}
           </button>
         )))}
+      <button
+        data-testid="All-category-filter"
+        onClick={async () => {
+          if (history.location.pathname === '/meals') {
+            const apiFirstMeals = await getMealsAPI('search.php?s=');
+            dispatch(saveRecipes(apiFirstMeals));
+            return;
+          }
+          const apiFirstDrinks = await getDrinksAPI('search.php?s=');
+          dispatch(saveRecipes(apiFirstDrinks));
+        }}
+      >
+        All
+      </button>
       <main>
         <ul>
 
