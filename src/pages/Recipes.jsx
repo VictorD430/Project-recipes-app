@@ -16,7 +16,7 @@ export default function Recipes() {
         const apiCategories = await getMealsAPI('list.php?c=list');
         const apiFirstMeals = await getMealsAPI('search.php?s=');
         dispatch(saveRecipes(apiFirstMeals));
-        setCategories(apiCategories.meals)
+        setCategories(apiCategories.meals);
         return;
       }
       const apiCategories = await getDrinksAPI('list.php?c=list');
@@ -74,6 +74,7 @@ export default function Recipes() {
                   <li
                     data-testid={ `${index}-recipe-card` }
                     key={ meal.idMeal }
+                    onClick={() => { history.push(`/meals/${meal.idMeal}`) }}
                   >
                     <p
                       data-testid={ `${index}-card-name` }
@@ -97,6 +98,7 @@ export default function Recipes() {
                   <li
                     key={ drink.idDrink }
                     data-testid={ `${index}-recipe-card` }
+                    onClick={() => { history.push(`/drinks/${drink.idDrink}`) }}
                   >
                     <p
                       data-testid={ `${index}-card-name` }
