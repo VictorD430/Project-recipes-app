@@ -13,3 +13,4 @@ export const getDrinksAPI = async (endpoint) => {
   console.log(data);
   return data;
 };
+// https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=11007

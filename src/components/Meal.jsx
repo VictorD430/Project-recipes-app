@@ -1,14 +1,17 @@
-import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 
-export default function Meal() {
-  const { recipes: { recipe } } = useSelector((state) => state);
+export default function Meal({ recipe }) {
+  // const { recipes: { recipe } } = useSelector((state) => state);
   const ingredients = Object.entries(recipe)
     .filter((i) => i[0].includes('strIngredient') && (i[1] !== '' && i[1] !== null));
   const measures = Object.entries(recipe)
     .filter((i) => i[0].includes('strMeasure') && (i[1] !== '' && i[1] !== null));
+
+  console.log(recipe);
+
   return (
     <div>
-      Recipes -
+      Recipes - Meal
       <img
         data-testid="recipe-photo"
         src={ recipe.strMealThumb }
@@ -41,3 +44,7 @@ export default function Meal() {
     </div>
   );
 }
+
+Meal.propTypes = {
+  recipe: PropTypes.shape().isRequired,
+};
