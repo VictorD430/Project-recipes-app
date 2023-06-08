@@ -50,6 +50,13 @@ export default function Recipe() {
     return (
       <div>
         <Meal recipe={ recipe.data } />
+        <button
+          data-testid="start-recipe-btn"
+          style={ { position: 'fixed',
+            bottom: '0px' } }
+        >
+          Start Recipe
+        </button>
       </div>
     );
   }
@@ -58,6 +65,12 @@ export default function Recipe() {
     return (
       <div>
         <Drink recipe={ recipe.data } />
+        <button
+          data-testid="start-recipe-btn"
+          style={ { position: 'fixed', bottom: '0px' } }
+        >
+          Start Recipe
+        </button>
       </div>
     );
   }
