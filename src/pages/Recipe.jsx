@@ -41,16 +41,39 @@ export default function Recipe() {
     //   id: '11007',
     //   type: 'drink',
     // }]));
+    // localStorage.setItem('inProgressRecipes', JSON.stringify(
+    //   {
+    //     drinks: {
+    //       11007: [],
+    //     },
+    //     meals: {
+    //       52977: [],
+    //     },
+    //   },
+    // ));
   }, []);
 
   let IdExist = false;
-  const localRecipe = JSON.parse(localStorage.getItem('doneRecipes'));
+  let isContinued = false;
 
-  if (localRecipe && recipe.type !== 'nao_definido') {
-    const checkId = localRecipe.filter((item) => item.type === recipe.type);
-    IdExist = checkId.some((item) => item.id === recipe
-      .data[`id${recipe.type[0].toUpperCase() + recipe.type.substring(1)}`]);
+  const recipesDoneLS = JSON.parse(localStorage.getItem('doneRecipes'));
+  const recipesContinuesLS = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const nameOfPropId = `id${recipe.type[0].toUpperCase() + recipe.type.substring(1)}`;
+
+  if (recipesDoneLS && recipe.type !== 'nao_definido') {
+    const recipesByActualType = recipesDoneLS.filter((item) => item.type === recipe.type);
+    IdExist = recipesByActualType.some((item) => item.id === recipe
+      .data[nameOfPropId]);
   }
+
+  if (recipesContinuesLS && recipe.type !== 'nao_definido') {
+    const recipesByActualType = recipesContinuesLS[`${recipe.type}s`];
+    isContinued = Object.entries(recipesByActualType)
+      .some((item) => item[0] === recipe.data[nameOfPropId]);
+    console.log(isContinued);
+  }
+
+  const btnTextElement = isContinued ? 'Continue Recipe' : 'Start Recipe';
 
   const btnElement = IdExist ? 'existe' : (
     <button
@@ -58,7 +81,7 @@ export default function Recipe() {
       style={ { position: 'fixed',
         bottom: '0px' } }
     >
-      Start Recipe
+      {btnTextElement}
     </button>
   );
 
