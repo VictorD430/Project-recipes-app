@@ -1,6 +1,8 @@
-import PropTypes from 'prop-types';
+import { PropTypes } from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { getDrinksAPI } from '../services/fetchAPI';
+import FavoriteIcon from './FavoriteIcon';
+import ShareIcon from './ShareIcon';
 
 export default function Meal({ recipe }) {
   // const { recipes: { recipe } } = useSelector((state) => state);
@@ -35,6 +37,8 @@ export default function Meal({ recipe }) {
         src={ recipe.strMealThumb }
         alt={ `imagem ${recipe.strMeal}` }
       />
+      <FavoriteIcon />
+      <ShareIcon pathName={ window.location.href } />
       <p data-testid="recipe-title">{recipe.strMeal}</p>
       <p data-testid="recipe-category">{recipe.strCategory}</p>
       <h2>Ingredients</h2>

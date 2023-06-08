@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useHistory } from 'react-router-dom';
 import { getDrinksAPI, getMealsAPI } from '../services/fetchAPI';
 import Meal from '../components/Meal';
 import Drink from '../components/Drink';
@@ -74,14 +74,14 @@ export default function Recipe() {
   }
 
   const btnTextElement = isContinued ? 'Continue Recipe' : 'Start Recipe';
-  /// meals/:recipeId/in-progress"
   const actualLocation = history.location.pathname;
   const btnElement = IdExist ? 'existe' : (
     <button
       data-testid="start-recipe-btn"
-      onClick={ () => { history.push(`${actualLocation}in-progress`); } }
+      onClick={ () => { history.push(`${actualLocation}/in-progress`); } }
       style={ { position: 'fixed',
-        bottom: '0px' } }
+        bottom: '0px',
+        left: '40px' } }
     >
       {btnTextElement}
     </button>

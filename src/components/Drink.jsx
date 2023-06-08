@@ -1,6 +1,8 @@
 import { PropTypes } from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { getMealsAPI } from '../services/fetchAPI';
+import FavoriteIcon from './FavoriteIcon';
+import ShareIcon from './ShareIcon';
 
 export default function Drink({ recipe }) {
   // const { recipes: { recipe } } = useSelector((state) => state);
@@ -37,6 +39,8 @@ export default function Drink({ recipe }) {
         src={ recipe.strDrinkThumb }
         alt={ `imagem ${recipe.strDrink}` }
       />
+      <FavoriteIcon />
+      <ShareIcon pathName={ window.location.href } />
       <p data-testid="recipe-title">{recipe.strDrink}</p>
       <p data-testid="recipe-category">
         {`${recipe.strCategory} - ${recipe.strAlcoholic}`}
