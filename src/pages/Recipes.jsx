@@ -8,6 +8,7 @@ import { saveRecipes } from '../redux/actions';
 export default function Recipes() {
   const { recipes: { meals, drinks } } = useSelector((state) => state);
   const [categories, setCategories] = useState([]);
+  const [lastCategory, setLastCategory] = useState(null);
   const history = useHistory();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -26,6 +27,30 @@ export default function Recipes() {
     };
     makeFetch();
   }, [setCategories, history]);
+
+  const handleCategoryClick = async (strCategory) => {
+    if (history.location.pathname === '/meals') {
+      if (lastCategory === strCategory) {
+        const apiFirstMeals = await getMealsAPI('search.php?s=');
+        dispatch(saveRecipes(apiFirstMeals));
+        setLastCategory(null);
+        return;
+      }
+      const categoryMeals = await getMealsAPI(`filter.php?c=${strCategory}`);
+      dispatch(saveRecipes(categoryMeals));
+      setLastCategory(strCategory);
+      return;
+    }
+    if (lastCategory === strCategory) {
+      const apiFirstDrinks = await getDrinksAPI('search.php?s=');
+      dispatch(saveRecipes(apiFirstDrinks));
+      setLastCategory(null);
+      return;
+    }
+    const categoryDrinks = await getDrinksAPI(`filter.php?c=${strCategory}`);
+    dispatch(saveRecipes(categoryDrinks));
+    setLastCategory(strCategory);
+  };
   return (
     <>
       <Header />
@@ -34,22 +59,23 @@ export default function Recipes() {
           <button
             key={ strCategory }
             data-testid={ `${strCategory}-category-filter` }
-            onClick={async () => {
-              if (history.location.pathname === '/meals') {
-                const categoryMeals = await getMealsAPI(`filter.php?c=${strCategory}`);
-                dispatch(saveRecipes(categoryMeals));
-                return;
-              }
-              const categoryDrinks = await getDrinksAPI(`filter.php?c=${strCategory}`);
-              dispatch(saveRecipes(categoryDrinks));
-            }}
+            onClick={ () => handleCategoryClick(strCategory) }
+            // onClick={async () => {
+            //   if (history.location.pathname === '/meals') {
+            //     const categoryMeals = await getMealsAPI(`filter.php?c=${strCategory}`);
+            //     dispatch(saveRecipes(categoryMeals));
+            //     return;
+            //   }
+            //   const categoryDrinks = await getDrinksAPI(`filter.php?c=${strCategory}`);
+            //   dispatch(saveRecipes(categoryDrinks));
+            // }}
           >
             {strCategory}
           </button>
         )))}
       <button
         data-testid="All-category-filter"
-        onClick={async () => {
+        onClick={ async () => {
           if (history.location.pathname === '/meals') {
             const apiFirstMeals = await getMealsAPI('search.php?s=');
             dispatch(saveRecipes(apiFirstMeals));
@@ -57,7 +83,7 @@ export default function Recipes() {
           }
           const apiFirstDrinks = await getDrinksAPI('search.php?s=');
           dispatch(saveRecipes(apiFirstDrinks));
-        }}
+        } }
       >
         All
       </button>
@@ -74,7 +100,7 @@ export default function Recipes() {
                   <li
                     data-testid={ `${index}-recipe-card` }
                     key={ meal.idMeal }
-                    onClick={() => { history.push(`/meals/${meal.idMeal}`) }}
+                    onClick={ () => { history.push(`/meals/${meal.idMeal}`); } }
                   >
                     <p
                       data-testid={ `${index}-card-name` }
@@ -98,7 +124,7 @@ export default function Recipes() {
                   <li
                     key={ drink.idDrink }
                     data-testid={ `${index}-recipe-card` }
-                    onClick={() => { history.push(`/drinks/${drink.idDrink}`) }}
+                    onClick={ () => { history.push(`/drinks/${drink.idDrink}`); } }
                   >
                     <p
                       data-testid={ `${index}-card-name` }
