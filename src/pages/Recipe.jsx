@@ -35,31 +35,18 @@ export default function Recipe() {
   useEffect(() => {
     getRecipeInfo();
     // localStorage.setItem('doneRecipes', JSON.stringify([{
-    //   id: '52977',
+    //   id: '11007',
     //   type: 'meal',
-    //   // nationality: nacionalidade-da-receita-ou-texto-vazio,
-    //   // category: categoria-da-receita-ou-texto-vazio,
-    //   // alcoholicOrNot: alcoholic-ou-non-alcoholic-ou-texto-vazio,
-    //   // name: nome-da-receita,
-    //   // image: imagem-da-receita,
-    //   // doneDate: quando-a-receita-foi-concluida,
-    //   // tags: array-de-tags-da-receita-ou-array-vazio
     // }, {
-    //   id: '10',
+    //   id: '11007',
     //   type: 'drink',
-    //   // nationality: nacionalidade-da-receita-ou-texto-vazio,
-    //   // category: categoria-da-receita-ou-texto-vazio,
-    //   // alcoholicOrNot: alcoholic-ou-non-alcoholic-ou-texto-vazio,
-    //   // name: nome-da-receita,
-    //   // image: imagem-da-receita,
-    //   // doneDate: quando-a-receita-foi-concluida,
-    //   // tags: array-de-tags-da-receita-ou-array-vazio
     // }]));
   }, []);
 
-  let IdExist;
+  let IdExist = false;
   const localRecipe = JSON.parse(localStorage.getItem('doneRecipes'));
-  if (localRecipe || recipe.type !== 'nao_definido') {
+
+  if (localRecipe && recipe.type !== 'nao_definido') {
     const checkId = localRecipe.filter((item) => item.type === recipe.type);
     IdExist = checkId.some((item) => item.id === recipe
       .data[`id${recipe.type[0].toUpperCase() + recipe.type.substring(1)}`]);
