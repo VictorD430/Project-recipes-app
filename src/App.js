@@ -14,14 +14,14 @@ import Favorites from './pages/Favorites';
 function App() {
   return (
     <div className="meals">
-      <span className="logo">TRYBE</span>
+      {/* <span className="logo">TRYBE</span>
       <object
         className="rocksGlass"
         type="image/svg+xml"
         data={ rockGlass }
       >
         Glass
-      </object>
+      </object> */}
       <Switch>
         <Route exact path="/" component={ Login } />
 
