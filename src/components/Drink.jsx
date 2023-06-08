@@ -1,4 +1,6 @@
 import { PropTypes } from 'prop-types';
+import React, { useEffect } from 'react';
+import { getMealsAPI } from '../services/fetchAPI';
 
 export default function Drink({ recipe }) {
   // const { recipes: { recipe } } = useSelector((state) => state);
@@ -12,6 +14,15 @@ export default function Drink({ recipe }) {
   // measures = Object.entries(recipe)
   // .filter((i) => i[0].includes('strMeasure') && (i[1] !== '' && i[1] !== null));
   // função substituida pois no teste do cy o objeto drink retornado tinha 4 ingredientes mas apenas 3 measures.
+
+  const getRecommendedMeals = async () => {
+    const data = await getMealsAPI('search.php?s=');
+    console.log(data);
+  };
+
+  useEffect(() => {
+    getRecommendedMeals();
+  }, []);
 
   return (
     <div>

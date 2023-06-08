@@ -1,4 +1,6 @@
 import PropTypes from 'prop-types';
+import React, { useEffect } from 'react';
+import { getDrinksAPI } from '../services/fetchAPI';
 
 export default function Meal({ recipe }) {
   // const { recipes: { recipe } } = useSelector((state) => state);
@@ -8,6 +10,15 @@ export default function Meal({ recipe }) {
     .filter((i) => i[0].includes('strMeasure') && (i[1] !== '' && i[1] !== null));
 
   console.log(recipe);
+
+  const getRecommendedDrinks = async () => {
+    const data = await getDrinksAPI('search.php?s=');
+    console.log(data);
+  };
+
+  useEffect(() => {
+    getRecommendedDrinks();
+  }, []);
 
   return (
     <div>
