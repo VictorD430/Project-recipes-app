@@ -74,10 +74,12 @@ export default function Recipe() {
   }
 
   const btnTextElement = isContinued ? 'Continue Recipe' : 'Start Recipe';
-
+  /// meals/:recipeId/in-progress"
+  const actualLocation = history.location.pathname;
   const btnElement = IdExist ? 'existe' : (
     <button
       data-testid="start-recipe-btn"
+      onClick={ () => { history.push(`${actualLocation}in-progress`); } }
       style={ { position: 'fixed',
         bottom: '0px' } }
     >
