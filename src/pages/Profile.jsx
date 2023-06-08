@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import Header from '../components/Header';
+import Footer from './Footer';
 
 export default function Profile() {
   const [email, setEmail] = useState('');
@@ -51,6 +52,7 @@ export default function Profile() {
           Logout
         </button>
       </div>
+      <Footer />
     </div>
   );
 }

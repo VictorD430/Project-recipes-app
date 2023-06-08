@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Route, Switch } from 'react-router-dom/cjs/react-router-dom.min';
 import Header from '../components/Header';
+import Footer from './Footer';
 
 export default function Recipes() {
   const { recipes: { meals, drinks } } = useSelector((state) => state);
@@ -62,6 +63,7 @@ export default function Recipes() {
           </Switch>
         </ul>
       </main>
+      <Footer />
     </>
   );
 }
