@@ -34,9 +34,46 @@ export default function Recipe() {
 
   useEffect(() => {
     getRecipeInfo();
+    // localStorage.setItem('doneRecipes', JSON.stringify([{
+    //   id: '52977',
+    //   type: 'meal',
+    //   // nationality: nacionalidade-da-receita-ou-texto-vazio,
+    //   // category: categoria-da-receita-ou-texto-vazio,
+    //   // alcoholicOrNot: alcoholic-ou-non-alcoholic-ou-texto-vazio,
+    //   // name: nome-da-receita,
+    //   // image: imagem-da-receita,
+    //   // doneDate: quando-a-receita-foi-concluida,
+    //   // tags: array-de-tags-da-receita-ou-array-vazio
+    // }, {
+    //   id: '10',
+    //   type: 'drink',
+    //   // nationality: nacionalidade-da-receita-ou-texto-vazio,
+    //   // category: categoria-da-receita-ou-texto-vazio,
+    //   // alcoholicOrNot: alcoholic-ou-non-alcoholic-ou-texto-vazio,
+    //   // name: nome-da-receita,
+    //   // image: imagem-da-receita,
+    //   // doneDate: quando-a-receita-foi-concluida,
+    //   // tags: array-de-tags-da-receita-ou-array-vazio
+    // }]));
   }, []);
 
-  console.log(recipe);
+  let IdExist;
+  const localRecipe = JSON.parse(localStorage.getItem('doneRecipes'));
+  if (localRecipe || recipe.type !== 'nao_definido') {
+    const checkId = localRecipe.filter((item) => item.type === recipe.type);
+    IdExist = checkId.some((item) => item.id === recipe
+      .data[`id${recipe.type[0].toUpperCase() + recipe.type.substring(1)}`]);
+  }
+
+  const btnElement = IdExist ? 'existe' : (
+    <button
+      data-testid="start-recipe-btn"
+      style={ { position: 'fixed',
+        bottom: '0px' } }
+    >
+      Start Recipe
+    </button>
+  );
 
   if (recipe.type === 'nao_definido') {
     return (
@@ -50,13 +87,7 @@ export default function Recipe() {
     return (
       <div>
         <Meal recipe={ recipe.data } />
-        <button
-          data-testid="start-recipe-btn"
-          style={ { position: 'fixed',
-            bottom: '0px' } }
-        >
-          Start Recipe
-        </button>
+        { btnElement }
       </div>
     );
   }
@@ -65,12 +96,7 @@ export default function Recipe() {
     return (
       <div>
         <Drink recipe={ recipe.data } />
-        <button
-          data-testid="start-recipe-btn"
-          style={ { position: 'fixed', bottom: '0px' } }
-        >
-          Start Recipe
-        </button>
+        { btnElement }
       </div>
     );
   }
