@@ -1,5 +1,5 @@
 import { PropTypes } from 'prop-types';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getMealsAPI } from '../services/fetchAPI';
 
 export default function Drink({ recipe }) {
@@ -11,6 +11,7 @@ export default function Drink({ recipe }) {
   ingredients.forEach((item, index) => {
     measures[index] = recipe[`strMeasure${index + 1}`] || ' ';
   });
+  const [recommendedMeals, setRecommendedMeals] = useState([]);
   // measures = Object.entries(recipe)
   // .filter((i) => i[0].includes('strMeasure') && (i[1] !== '' && i[1] !== null));
   // função substituida pois no teste do cy o objeto drink retornado tinha 4 ingredientes mas apenas 3 measures.
@@ -18,11 +19,15 @@ export default function Drink({ recipe }) {
   const getRecommendedMeals = async () => {
     const data = await getMealsAPI('search.php?s=');
     console.log(data);
+    const [um, dois, tres, quatro, cinco, seis] = data.meals;
+    setRecommendedMeals([um, dois, tres, quatro, cinco, seis]);
   };
 
   useEffect(() => {
     getRecommendedMeals();
   }, []);
+
+  const visibilityOfRecomendations = ['block', 'block', 'none', 'none', 'none', 'none'];
 
   return (
     <div>
@@ -49,6 +54,23 @@ export default function Drink({ recipe }) {
         </label>))}
       <h2>Instructions</h2>
       <p data-testid="instructions">{recipe.strInstructions}</p>
+
+      {
+        recommendedMeals.length > 0 ? (
+          <div>
+            {
+              recommendedMeals.map((r, index) => (
+                <div
+                  key={ index }
+                  data-testid={ `${index}-recommendation-card` }
+                  style={ { display: visibilityOfRecomendations[index] } }
+                >
+                  <h1 data-testid={ `${index}-recommendation-title` }>{r.strMeal}</h1>
+                  <p>{r.idMeal}</p>
+                </div>))
+            }
+          </div>) : (<div>Sem recomendações ainda</div>)
+      }
     </div>
   );
 }

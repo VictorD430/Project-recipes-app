@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getDrinksAPI } from '../services/fetchAPI';
 
 export default function Meal({ recipe }) {
@@ -10,15 +10,22 @@ export default function Meal({ recipe }) {
     .filter((i) => i[0].includes('strMeasure') && (i[1] !== '' && i[1] !== null));
 
   console.log(recipe);
+  const [recommendedDrinks, setRecommendedDrinks] = useState([]);
 
   const getRecommendedDrinks = async () => {
     const data = await getDrinksAPI('search.php?s=');
     console.log(data);
+    console.log(data.drinks);
+
+    const [um, dois, tres, quatro, cinco, seis] = data.drinks;
+    setRecommendedDrinks([um, dois, tres, quatro, cinco, seis]);
   };
 
   useEffect(() => {
     getRecommendedDrinks();
   }, []);
+
+  const visibilityOfRecomendations = ['block', 'block', 'none', 'none', 'none', 'none'];
 
   return (
     <div>
@@ -52,6 +59,24 @@ export default function Meal({ recipe }) {
             src={ recipe.strYoutube.replace('watch?v=', 'embed/') }
           />
         ) : (<div />)}
+
+      {
+        recommendedDrinks.length > 0 ? (
+          <div>
+            {
+              recommendedDrinks.map((r, index) => (
+                <div
+                  key={ index }
+                  data-testid={ `${index}-recommendation-card` }
+                  style={ { display: visibilityOfRecomendations[index] } }
+                >
+                  <h1 data-testid={ `${index}-recommendation-title` }>{r.strDrink}</h1>
+                  <p>{r.idDrink}</p>
+                </div>))
+            }
+          </div>
+        ) : (<div>Sem recomendações ainda</div>)
+      }
     </div>
   );
 }
