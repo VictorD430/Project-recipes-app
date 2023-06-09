@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Route, Switch, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import {
+  Link,
+  Route,
+  Switch,
+  useHistory,
+} from 'react-router-dom';
 import Header from '../components/Header';
 import { getDrinksAPI, getMealsAPI } from '../services/fetchAPI';
 import { saveRecipes } from '../redux/actions';
 
 export default function Recipes() {
+  const firstItens = 'search.php?s=';
   const { recipes: { meals, drinks } } = useSelector((state) => state);
   const [categories, setCategories] = useState([]);
   const [lastCategory, setLastCategory] = useState(null);
@@ -15,23 +21,23 @@ export default function Recipes() {
     const makeFetch = async () => {
       if (history.location.pathname === '/meals') {
         const apiCategories = await getMealsAPI('list.php?c=list');
-        const apiFirstMeals = await getMealsAPI('search.php?s=');
+        const apiFirstMeals = await getMealsAPI(firstItens);
         dispatch(saveRecipes(apiFirstMeals));
         setCategories(apiCategories.meals);
         return;
       }
       const apiCategories = await getDrinksAPI('list.php?c=list');
-      const apiFirstDrinks = await getDrinksAPI('search.php?s=');
+      const apiFirstDrinks = await getDrinksAPI(firstItens);
       dispatch(saveRecipes(apiFirstDrinks));
       setCategories(apiCategories.drinks);
     };
     makeFetch();
-  }, [setCategories, history]);
+  }, [setCategories, history, dispatch]);
 
   const handleCategoryClick = async (strCategory) => {
     if (history.location.pathname === '/meals') {
       if (lastCategory === strCategory) {
-        const apiFirstMeals = await getMealsAPI('search.php?s=');
+        const apiFirstMeals = await getMealsAPI(firstItens);
         dispatch(saveRecipes(apiFirstMeals));
         setLastCategory(null);
         return;
@@ -42,7 +48,7 @@ export default function Recipes() {
       return;
     }
     if (lastCategory === strCategory) {
-      const apiFirstDrinks = await getDrinksAPI('search.php?s=');
+      const apiFirstDrinks = await getDrinksAPI(firstItens);
       dispatch(saveRecipes(apiFirstDrinks));
       setLastCategory(null);
       return;
@@ -60,15 +66,6 @@ export default function Recipes() {
             key={ strCategory }
             data-testid={ `${strCategory}-category-filter` }
             onClick={ () => handleCategoryClick(strCategory) }
-            // onClick={async () => {
-            //   if (history.location.pathname === '/meals') {
-            //     const categoryMeals = await getMealsAPI(`filter.php?c=${strCategory}`);
-            //     dispatch(saveRecipes(categoryMeals));
-            //     return;
-            //   }
-            //   const categoryDrinks = await getDrinksAPI(`filter.php?c=${strCategory}`);
-            //   dispatch(saveRecipes(categoryDrinks));
-            // }}
           >
             {strCategory}
           </button>
@@ -77,11 +74,11 @@ export default function Recipes() {
         data-testid="All-category-filter"
         onClick={ async () => {
           if (history.location.pathname === '/meals') {
-            const apiFirstMeals = await getMealsAPI('search.php?s=');
+            const apiFirstMeals = await getMealsAPI(firstItens);
             dispatch(saveRecipes(apiFirstMeals));
             return;
           }
-          const apiFirstDrinks = await getDrinksAPI('search.php?s=');
+          const apiFirstDrinks = await getDrinksAPI(firstItens);
           dispatch(saveRecipes(apiFirstDrinks));
         } }
       >
@@ -97,23 +94,26 @@ export default function Recipes() {
               render={ () => (meals.map((meal, index) => (
                 index < +'12'
                 && (
-                  <li
-                    data-testid={ `${index}-recipe-card` }
+                  <Link
+                    to={ `/meals/${meal.idMeal}` }
                     key={ meal.idMeal }
-                    onClick={ () => { history.push(`/meals/${meal.idMeal}`); } }
                   >
-                    <p
-                      data-testid={ `${index}-card-name` }
+                    <li
+                      data-testid={ `${index}-recipe-card` }
                     >
-                      {meal.strMeal}
-                    </p>
-                    <img
-                      width={ 10 }
-                      data-testid={ `${index}-card-img` }
-                      src={ meal.strMealThumb }
-                      alt={ meal.strMeal }
-                    />
-                  </li>
+                      <p
+                        data-testid={ `${index}-card-name` }
+                      >
+                        {meal.strMeal}
+                      </p>
+                      <img
+                        width={ 10 }
+                        data-testid={ `${index}-card-img` }
+                        src={ meal.strMealThumb }
+                        alt={ meal.strMeal }
+                      />
+                    </li>
+                  </Link>
                 )))) }
             />
             <Route
@@ -121,23 +121,26 @@ export default function Recipes() {
               path="/drinks"
               render={ () => (drinks.map((drink, index) => (
                 index < +'12' && (
-                  <li
+                  <Link
+                    to={ `/drinks/${drink.idDrink}` }
                     key={ drink.idDrink }
-                    data-testid={ `${index}-recipe-card` }
-                    onClick={ () => { history.push(`/drinks/${drink.idDrink}`); } }
                   >
-                    <p
-                      data-testid={ `${index}-card-name` }
+                    <li
+                      data-testid={ `${index}-recipe-card` }
                     >
-                      {drink.strDrink}
-                    </p>
-                    <img
-                      width={ 10 }
-                      data-testid={ `${index}-card-img` }
-                      src={ drink.strDrinkThumb }
-                      alt={ drink.strDrink }
-                    />
-                  </li>
+                      <p
+                        data-testid={ `${index}-card-name` }
+                      >
+                        {drink.strDrink}
+                      </p>
+                      <img
+                        width={ 10 }
+                        data-testid={ `${index}-card-img` }
+                        src={ drink.strDrinkThumb }
+                        alt={ drink.strDrink }
+                      />
+                    </li>
+                  </Link>
                 )))) }
             />
           </Switch>
