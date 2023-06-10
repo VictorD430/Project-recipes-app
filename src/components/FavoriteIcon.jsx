@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import favoriteImage from '../images/whiteHeartIcon.svg';
 import { saveFavoriteMeal, saveFavoriteDrink } from '../redux/actions';
@@ -37,16 +38,20 @@ export default function FavoriteIcon({ dados }) {
   return (
     <button
       data-testid="favorite-btn"
+      onClick={ addFavorite }
       style={ { position: 'fixed',
         top: '20px',
         right: '10px' } }
     >
       <img
-
         src={ favoriteImage }
-        onClick={ addFavorite }
         alt="white-heart-icon"
       />
     </button>
   );
 }
+
+FavoriteIcon.propTypes = {
+  dados: PropTypes.shape().isRequired,
+
+};

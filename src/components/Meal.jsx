@@ -1,4 +1,4 @@
-import { PropTypes } from 'prop-types';
+import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { getDrinksAPI } from '../services/fetchAPI';
 import FavoriteIcon from './FavoriteIcon';
@@ -92,3 +92,8 @@ export default function Meal({ recipe }) {
     </div>
   );
 }
+
+Meal.propTypes = {
+  recipe: PropTypes.shape().isRequired,
+
+};

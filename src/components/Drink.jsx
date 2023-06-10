@@ -89,3 +89,7 @@ export default function Drink({ recipe }) {
     </div>
   );
 }
+
+Drink.propTypes = {
+  recipe: PropTypes.shape().isRequired,
+};
