@@ -1,26 +1,29 @@
 import {
   SAVE_RECIPES,
   SAVE_RECIPE,
-  SAVE_FAVORITE_MEAL,
-  SAVE_FAVORITE_DRINK,
+  ADD_FAVORITE,
 } from '../actions';
 
 const INITIAL_STATE = {
   meals: [],
   drinks: [],
   recipe: [],
-  favoriteDrinks: [],
-  favoriteMeals: [],
+  favoriteRecipes: [],
 };
 
-const recipes = (state = INITIAL_STATE, { type, payload }) => {
+const recipes = (state = INITIAL_STATE, { type, payload }) => { console.log(state)
   switch (type) {
+    case ADD_FAVORITE:
+    return {
+      ...state,
+      favoriteRecipes: [...state.favoriteRecipes, payload]
+    };
   case SAVE_RECIPES:
     return {
       ...state,
       ...payload,
     };
-  case SAVE_FAVORITE_MEAL:
+/*  case SAVE_FAVORITE_MEAL:
     console.log(state);
     return {
       ...state,
@@ -30,7 +33,7 @@ const recipes = (state = INITIAL_STATE, { type, payload }) => {
     return {
       ...state,
       favoriteDrinks: [...state.favoriteDrinks, payload],
-    };
+    };*/
   case SAVE_RECIPE:
     return {
       ...state,

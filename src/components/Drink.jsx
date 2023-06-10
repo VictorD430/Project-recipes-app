@@ -14,7 +14,7 @@ import ShareIcon from './ShareIcon';
 
 export default function Drink({ recipe }) {
   const recipeInfo = recipe.data;
-  const { type } = recipe;
+  const { type, isFavorite } = recipe;
   // const { recipes: { recipe } } = useSelector((state) => state);
   // se implementar recipe na store é so descomentar a linha
   const ingredients = Object.entries(recipeInfo)
@@ -49,8 +49,9 @@ export default function Drink({ recipe }) {
         src={ recipeInfo.strDrinkThumb }
         alt={ `imagem ${recipe.strDrink}` }
       />
-
-      <FavoriteIcon dados={ { recipeInfo, type } } />
+      
+      
+      <FavoriteIcon dados={ { recipeInfo, type, isFavorite } } />
       <ShareIcon pathName={ window.location.href } />
       <p data-testid="recipe-title">{recipeInfo.strDrink}</p>
       <p data-testid="recipe-category">

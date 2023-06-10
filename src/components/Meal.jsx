@@ -7,7 +7,7 @@ import ShareIcon from './ShareIcon';
 export default function Meal({ recipe }) {
   // const { recipe, type } = data;
   const recipeInfo = recipe.data;
-  const { type } = recipe;
+  const { type, isFavorite } = recipe;
   console.log(recipe);
   console.log(type);
   console.log(recipeInfo);
@@ -45,7 +45,7 @@ export default function Meal({ recipe }) {
         alt={ `imagem ${recipeInfo.strMeal}` }
       />
 
-      <FavoriteIcon dados={ { recipeInfo, type } } />
+      <FavoriteIcon dados={ { recipeInfo, type, isFavorite } } />
       <ShareIcon pathName={ window.location.href } />
       <p data-testid="recipe-title">{recipeInfo.strMeal}</p>
       <p data-testid="recipe-category">{recipeInfo.strCategory}</p>

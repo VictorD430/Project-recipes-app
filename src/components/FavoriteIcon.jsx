@@ -1,15 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
-import favoriteImage from '../images/whiteHeartIcon.svg';
-import { saveFavoriteMeal, saveFavoriteDrink } from '../redux/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import notfavoriteImage from '../images/whiteHeartIcon.svg';
+import favoriteImage from '../images/blackHeartIcon.svg'
+import { addOnFavoriteList } from '../redux/actions';
 
 export default function FavoriteIcon({ dados }) {
   console.log(dados);
   const recipe = dados.recipeInfo;
   const dispatch = useDispatch();
-  const { type } = dados;
+  const { type,isFavorite } = dados;
+  console.log(isFavorite)
+  
 
+  const imageHeart = isFavorite ? favoriteImage : notfavoriteImage;
   const addFavorite = () => {
     const upperCaseName = `${type[0].toUpperCase()}${type.substring(1)}`;
     const nameOfPropId = `id${upperCaseName}`;
@@ -27,24 +31,26 @@ export default function FavoriteIcon({ dados }) {
     const newArray = [...stateLH, recipeObject];
 
     localStorage.setItem('favoriteRecipes', JSON.stringify(newArray));
-
-    switch (type) {
-    case 'meal': dispatch(saveFavoriteMeal(recipeObject)); break;
-    case 'drink': dispatch(saveFavoriteDrink(recipeObject)); break;
-    default:
-    }
+    dispatch(addOnFavoriteList(recipeObject));
+    
+    //switch (type) {
+    //case 'meal': dispatch(saveFavoriteMeal(recipeObject)); break;
+    //case 'drink': dispatch(saveFavoriteDrink(recipeObject)); break;
+    //default:
+    //}
   };
 
   return (
     <button
       data-testid="favorite-btn"
       onClick={ addFavorite }
+      src={ imageHeart }
       style={ { position: 'fixed',
         top: '20px',
         right: '10px' } }
     >
       <img
-        src={ favoriteImage }
+        src={ imageHeart }
         alt="white-heart-icon"
       />
     </button>
