@@ -49,8 +49,6 @@ export default function Drink({ recipe }) {
         src={ recipeInfo.strDrinkThumb }
         alt={ `imagem ${recipe.strDrink}` }
       />
-      
-      
       <FavoriteIcon dados={ { recipeInfo, type, isFavorite } } />
       <ShareIcon pathName={ window.location.href } />
       <p data-testid="recipe-title">{recipeInfo.strDrink}</p>

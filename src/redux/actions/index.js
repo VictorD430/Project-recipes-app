@@ -1,8 +1,8 @@
 export const SAVE_RECIPES = 'SAVE_RECIPES';
 export const SAVE_RECIPE = 'SAVE_RECIPES';
 export const FETCH_MEALS = 'FETCH_MEALS';
-//export const SAVE_FAVORITE_MEAL = 'SAVE_FAVORITE_MEAL';
-//export const SAVE_FAVORITE_DRINK = 'FETCH_FAVORITE_DRINK';
+// export const SAVE_FAVORITE_MEAL = 'SAVE_FAVORITE_MEAL';
+// export const SAVE_FAVORITE_DRINK = 'FETCH_FAVORITE_DRINK';
 export const ADD_FAVORITE = 'ADD_FAVORITE';
 
 export const saveRecipes = (payload) => ({
