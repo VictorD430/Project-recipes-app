@@ -5,21 +5,28 @@ import FavoriteIcon from './FavoriteIcon';
 import ShareIcon from './ShareIcon';
 
 export default function Meal({ recipe }) {
+  // const { recipe, type } = data;
+  const recipeInfo = recipe.data;
+  const { type } = recipe;
+  console.log(recipe);
+  console.log(type);
+  console.log(recipeInfo);
+  // const { recipe: recipeInfo, type } = recipe;
   // const { recipes: { recipe } } = useSelector((state) => state);
-  const ingredients = Object.entries(recipe)
+  const ingredients = Object.entries(recipeInfo)
     .filter((i) => i[0].includes('strIngredient') && (i[1] !== '' && i[1] !== null));
-  const measures = Object.entries(recipe)
+  const measures = Object.entries(recipeInfo)
     .filter((i) => i[0].includes('strMeasure') && (i[1] !== '' && i[1] !== null));
 
-  console.log(recipe);
+  console.log(recipeInfo);
   const [recommendedDrinks, setRecommendedDrinks] = useState([]);
 
   const getRecommendedDrinks = async () => {
-    const data = await getDrinksAPI('search.php?s=');
-    console.log(data);
-    console.log(data.drinks);
+    const drink = await getDrinksAPI('search.php?s=');
+    console.log(drink);
+    console.log(drink.drinks);
 
-    const [um, dois, tres, quatro, cinco, seis] = data.drinks;
+    const [um, dois, tres, quatro, cinco, seis] = drink.drinks;
     setRecommendedDrinks([um, dois, tres, quatro, cinco, seis]);
   };
 
@@ -34,13 +41,14 @@ export default function Meal({ recipe }) {
       Recipes - Meal
       <img
         data-testid="recipe-photo"
-        src={ recipe.strMealThumb }
-        alt={ `imagem ${recipe.strMeal}` }
+        src={ recipeInfo.strMealThumb }
+        alt={ `imagem ${recipeInfo.strMeal}` }
       />
-      <FavoriteIcon />
+
+      <FavoriteIcon dados={ { recipeInfo, type } } />
       <ShareIcon pathName={ window.location.href } />
-      <p data-testid="recipe-title">{recipe.strMeal}</p>
-      <p data-testid="recipe-category">{recipe.strCategory}</p>
+      <p data-testid="recipe-title">{recipeInfo.strMeal}</p>
+      <p data-testid="recipe-category">{recipeInfo.strCategory}</p>
       <h2>Ingredients</h2>
       {ingredients.map((i, index) => (
         <label key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
@@ -52,15 +60,15 @@ export default function Meal({ recipe }) {
           }
         </label>))}
       <h2>Instructions</h2>
-      <p data-testid="instructions">{recipe.strInstructions}</p>
-      {Object.keys(recipe).filter((i) => i[0].includes('strYoutube'))
+      <p data-testid="instructions">{recipeInfo.strInstructions}</p>
+      {Object.keys(recipeInfo).filter((i) => i[0].includes('strYoutube'))
         ? (
           <iframe
             data-testid="video"
-            title={ recipe.strMeal }
+            title={ recipeInfo.strMeal }
             width="420"
             height="315"
-            src={ recipe.strYoutube.replace('watch?v=', 'embed/') }
+            src={ recipeInfo.strYoutube.replace('watch?v=', 'embed/') }
           />
         ) : (<div />)}
 
@@ -84,7 +92,3 @@ export default function Meal({ recipe }) {
     </div>
   );
 }
-
-Meal.propTypes = {
-  recipe: PropTypes.shape().isRequired,
-};

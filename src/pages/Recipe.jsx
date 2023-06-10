@@ -5,6 +5,8 @@ import Meal from '../components/Meal';
 import Drink from '../components/Drink';
 
 export default function Recipe() {
+  // const recipeInfo = recipe.data;
+  // const { type } = recipe;
   // const idTestMeals = 52977;
   // const idTestDrink = 11007;
 
@@ -99,7 +101,7 @@ export default function Recipe() {
   if (recipe.type === 'meal') {
     return (
       <div>
-        <Meal recipe={ recipe.data } />
+        <Meal recipe={ recipe } />
         { btnElement }
       </div>
     );
@@ -108,7 +110,7 @@ export default function Recipe() {
   if (recipe.type === 'drink') {
     return (
       <div>
-        <Drink recipe={ recipe.data } />
+        <Drink recipe={ recipe } />
         { btnElement }
       </div>
     );

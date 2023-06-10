@@ -4,14 +4,24 @@ import { getMealsAPI } from '../services/fetchAPI';
 import FavoriteIcon from './FavoriteIcon';
 import ShareIcon from './ShareIcon';
 
+// export default function Meal({ recipe }) {
+//
+//   const recipeInfo = recipe.data;
+//   const { type } = recipe;
+//   console.log(recipe);
+//   console.log(type);
+//   console.log(recipeInfo);
+
 export default function Drink({ recipe }) {
+  const recipeInfo = recipe.data;
+  const { type } = recipe;
   // const { recipes: { recipe } } = useSelector((state) => state);
   // se implementar recipe na store é so descomentar a linha
-  const ingredients = Object.entries(recipe)
+  const ingredients = Object.entries(recipeInfo)
     .filter((i) => i[0].includes('strIngredient') && (i[1] !== '' && i[1] !== null));
   const measures = { ...ingredients };
   ingredients.forEach((item, index) => {
-    measures[index] = recipe[`strMeasure${index + 1}`] || ' ';
+    measures[index] = recipeInfo[`strMeasure${index + 1}`] || ' ';
   });
   const [recommendedMeals, setRecommendedMeals] = useState([]);
   // measures = Object.entries(recipe)
@@ -36,14 +46,15 @@ export default function Drink({ recipe }) {
       Recipes - Drink
       <img
         data-testid="recipe-photo"
-        src={ recipe.strDrinkThumb }
+        src={ recipeInfo.strDrinkThumb }
         alt={ `imagem ${recipe.strDrink}` }
       />
-      <FavoriteIcon />
+
+      <FavoriteIcon dados={ { recipeInfo, type } } />
       <ShareIcon pathName={ window.location.href } />
-      <p data-testid="recipe-title">{recipe.strDrink}</p>
+      <p data-testid="recipe-title">{recipeInfo.strDrink}</p>
       <p data-testid="recipe-category">
-        {`${recipe.strCategory} - ${recipe.strAlcoholic}`}
+        {`${recipeInfo.strCategory} - ${recipeInfo.strAlcoholic}`}
       </p>
 
       <h2>Ingredients</h2>
@@ -57,7 +68,7 @@ export default function Drink({ recipe }) {
           }
         </label>))}
       <h2>Instructions</h2>
-      <p data-testid="instructions">{recipe.strInstructions}</p>
+      <p data-testid="instructions">{recipeInfo.strInstructions}</p>
 
       {
         recommendedMeals.length > 0 ? (
@@ -78,7 +89,3 @@ export default function Drink({ recipe }) {
     </div>
   );
 }
-
-Drink.propTypes = {
-  recipe: PropTypes.shape().isRequired,
-};
