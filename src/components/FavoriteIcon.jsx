@@ -59,6 +59,7 @@ export default function FavoriteIcon({ dados }) {
     <button
       data-testid="favorite-btn"
       onClick={ toggleFavorite }
+      className="favorite-btn"
       src={ imageHeart }
       style={ { position: 'fixed',
         top: '20px',
