@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import notfavoriteImage from '../images/whiteHeartIcon.svg';
 import favoriteImage from '../images/blackHeartIcon.svg'
-import { addOnFavoriteList } from '../redux/actions';
+import { addOnFavoriteList, saveRecipes } from '../redux/actions';
 
 export default function FavoriteIcon({ dados }) {
   console.log(dados);
@@ -11,16 +11,40 @@ export default function FavoriteIcon({ dados }) {
   const dispatch = useDispatch();
   const { type,isFavorite } = dados;
   console.log(isFavorite)
-  
-
   const imageHeart = isFavorite ? favoriteImage : notfavoriteImage;
-  const addFavorite = () => {
+  
+  const toggleFavorite = () => {
     const upperCaseName = `${type[0].toUpperCase()}${type.substring(1)}`;
     const nameOfPropId = `id${upperCaseName}`;
-    const stateLH = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    const stateLS = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    
+    if(isFavorite){
+      rmvFavorite(recipe[nameOfPropId],stateLS);
+    }else{
+      addFavorite(recipe[nameOfPropId],stateLS,upperCaseName);
+    }
+    
+  }
+  
+  const rmvFavorite = (id,stateLS) => {
+    //const upperCaseName = `${type[0].toUpperCase()}${type.substring(1)}`;
+    //const nameOfPropId = `id${upperCaseName}`;
+    //const stateLS = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+  
+    const arrayWithOutCurrentRecipe = stateLS.filter((recipeLH)=> recipeLH.id !== id && recipeLH.type !== type)
+    console.log(arrayWithOutCurrentRecipe);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(arrayWithOutCurrentRecipe));
+    dispatch(saveRecipes(arrayWithOutCurrentRecipe))
+  
+  }
+  
+  const addFavorite = (id,stateLS,upperCaseName) => {
+    //const upperCaseName = `${type[0].toUpperCase()}${type.substring(1)}`;
+    //const nameOfPropId = `id${upperCaseName}`;
+    //const stateLS = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
 
     const recipeObject = {
-      id: recipe[nameOfPropId],
+      id,
       type,
       nationality: recipe.strArea || '',
       category: recipe.strCategory,
@@ -28,22 +52,16 @@ export default function FavoriteIcon({ dados }) {
       name: recipe[`str${upperCaseName}`],
       image: recipe[`str${upperCaseName}Thumb`],
     };
-    const newArray = [...stateLH, recipeObject];
+    const newArray = [...stateLS, recipeObject];
 
     localStorage.setItem('favoriteRecipes', JSON.stringify(newArray));
     dispatch(addOnFavoriteList(recipeObject));
-    
-    //switch (type) {
-    //case 'meal': dispatch(saveFavoriteMeal(recipeObject)); break;
-    //case 'drink': dispatch(saveFavoriteDrink(recipeObject)); break;
-    //default:
-    //}
   };
 
   return (
     <button
       data-testid="favorite-btn"
-      onClick={ addFavorite }
+      onClick={ toggleFavorite }
       src={ imageHeart }
       style={ { position: 'fixed',
         top: '20px',
