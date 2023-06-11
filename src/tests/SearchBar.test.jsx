@@ -187,7 +187,7 @@ describe('Testando a funcionalidade da SearchBar', () => {
   });
   it('Testando se o retorno da API for nulo dispara um alerta', async () => {
     jest.spyOn(global, 'fetch');
-    jest.spyOn(window, 'alert').mockImplementation(() => {});
+    jest.spyOn(global, 'alert').mockImplementation(() => {});
     global.fetch.mockResolvedValue({
       json: jest.fn().mockResolvedValueOnce(categoriesDrinksMock)
         .mockResolvedValueOnce(drinksMock)
@@ -207,7 +207,7 @@ describe('Testando a funcionalidade da SearchBar', () => {
     act(() => {
       userEvent.click(searchButton);
     });
-    expect(window.alert)
-      .toHaveBeenCalledWith('Sorry, we haven\'t found any recipes for these filters.');
+    await waitFor(() => expect(global.alert)
+      .toHaveBeenCalledWith('Sorry, we haven\'t found any recipes for these filters.'));
   });
 });

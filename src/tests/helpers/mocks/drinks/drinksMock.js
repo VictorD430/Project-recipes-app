@@ -1,12 +1,3 @@
-const ordinaryDrink = 'Ordinary Drink';
-const collinsGlass = 'Collins Glass';
-const cocktailGlass = 'Cocktail glass';
-const grandMarnier = 'Grand Marnier';
-const shotGlass = 'Shot glass';
-const baileysIrishCream = 'Baileys irish cream';
-const proofRum151 = '151 proof rum';
-const orangeJuice = 'Orange juice';
-const coffeeTea = 'Coffee / Tea';
 const drinksMock = {
   drinks: [
     {
@@ -15,10 +6,10 @@ const drinksMock = {
       strDrinkAlternate: null,
       strTags: null,
       strVideo: null,
-      strCategory: ordinaryDrink,
+      strCategory: 'Ordinary Drink',
       strIBA: null,
       strAlcoholic: 'Optional alcohol',
-      strGlass: collinsGlass,
+      strGlass: 'Collins Glass',
       strInstructions:
         'Pour the Galliano liqueur over ice. Fill the remainder of the glass with ginger ale and thats all there is to it. You now have a your very own GG.',
       strInstructionsES: null,
@@ -77,7 +68,7 @@ const drinksMock = {
       strCategory: 'Cocktail',
       strIBA: null,
       strAlcoholic: 'Alcoholic',
-      strGlass: cocktailGlass,
+      strGlass: 'Cocktail glass',
       strInstructions:
         'Pour all ingredients into a cocktail shaker, mix and serve over ice into a chilled glass.',
       strInstructionsES:
@@ -92,7 +83,7 @@ const drinksMock = {
       strDrinkThumb:
         'https://www.thecocktaildb.com/images/media/drink/2x8thr1504816928.jpg',
       strIngredient1: 'Gin',
-      strIngredient2: grandMarnier,
+      strIngredient2: 'Grand Marnier',
       strIngredient3: 'Lemon Juice',
       strIngredient4: 'Grenadine',
       strIngredient5: null,
@@ -193,7 +184,7 @@ const drinksMock = {
       strCategory: 'Shot',
       strIBA: null,
       strAlcoholic: 'Alcoholic',
-      strGlass: shotGlass,
+      strGlass: 'Shot glass',
       strInstructions:
         'pour kaluha, then Baileys, then Frangelico not chilled and not layered -- SERVE!!!',
       strInstructionsES: null,
@@ -206,7 +197,7 @@ const drinksMock = {
       strDrinkThumb:
         'https://www.thecocktaildb.com/images/media/drink/xxsxqy1472668106.jpg',
       strIngredient1: 'Kahlua',
-      strIngredient2: baileysIrishCream,
+      strIngredient2: 'Baileys irish cream',
       strIngredient3: 'Frangelico',
       strIngredient4: null,
       strIngredient5: null,
@@ -246,7 +237,7 @@ const drinksMock = {
       strDrinkAlternate: null,
       strTags: 'IBA,ContemporaryClassic',
       strVideo: null,
-      strCategory: ordinaryDrink,
+      strCategory: 'Ordinary Drink',
       strIBA: null,
       strAlcoholic: 'Alcoholic',
       strGlass: 'Wine Glass',
@@ -306,7 +297,7 @@ const drinksMock = {
       strCategory: 'Shot',
       strIBA: null,
       strAlcoholic: 'Alcoholic',
-      strGlass: shotGlass,
+      strGlass: 'Shot glass',
       strInstructions: 'Layered in a shot glass.',
       strInstructionsES:
         'Coloque todos los ingredientes en un vaso de chupito.',
@@ -319,7 +310,7 @@ const drinksMock = {
       strDrinkThumb:
         'https://www.thecocktaildb.com/images/media/drink/tqpvqp1472668328.jpg',
       strIngredient1: 'Amaretto',
-      strIngredient2: baileysIrishCream,
+      strIngredient2: 'Baileys irish cream',
       strIngredient3: 'Cognac',
       strIngredient4: null,
       strIngredient5: null,
@@ -362,7 +353,7 @@ const drinksMock = {
       strCategory: 'Shot',
       strIBA: null,
       strAlcoholic: 'Alcoholic',
-      strGlass: shotGlass,
+      strGlass: 'Shot glass',
       strInstructions:
         'Add both ingredients to shot glass, shoot, and get drunk quick',
       strInstructionsES: null,
@@ -374,7 +365,7 @@ const drinksMock = {
       'strInstructionsZH-HANT': null,
       strDrinkThumb:
         'https://www.thecocktaildb.com/images/media/drink/rtpxqw1468877562.jpg',
-      strIngredient1: proofRum151,
+      strIngredient1: '151 proof rum',
       strIngredient2: 'Wild Turkey',
       strIngredient3: null,
       strIngredient4: null,
@@ -415,7 +406,7 @@ const drinksMock = {
       strDrinkAlternate: null,
       strTags: null,
       strVideo: null,
-      strCategory: ordinaryDrink,
+      strCategory: 'Ordinary Drink',
       strIBA: null,
       strAlcoholic: 'Alcoholic',
       strGlass: 'Highball Glass',
@@ -488,7 +479,7 @@ const drinksMock = {
       strIngredient1: 'Red wine',
       strIngredient2: 'Peach schnapps',
       strIngredient3: 'Pepsi Cola',
-      strIngredient4: orangeJuice,
+      strIngredient4: 'Orange juice',
       strIngredient5: null,
       strIngredient6: null,
       strIngredient7: null,
@@ -529,7 +520,7 @@ const drinksMock = {
       strCategory: 'Shot',
       strIBA: null,
       strAlcoholic: 'Alcoholic',
-      strGlass: collinssGlass,
+      strGlass: 'Collins Glass',
       strInstructions:
         'Layer the Kahlua, Sambucca and Grand Marnier into a shot glas in that order. Better than B-52',
       strInstructionsES: null,
@@ -544,7 +535,7 @@ const drinksMock = {
         'https://www.thecocktaildb.com/images/media/drink/rwqxrv1461866023.jpg',
       strIngredient1: 'Kahlua',
       strIngredient2: 'Sambuca',
-      strIngredient3: grandMarnier,
+      strIngredient3: 'Grand Marnier',
       strIngredient4: null,
       strIngredient5: null,
       strIngredient6: null,
@@ -583,10 +574,10 @@ const drinksMock = {
       strDrinkAlternate: null,
       strTags: 'Alcoholic,Holiday',
       strVideo: null,
-      strCategory: ordinaryDrink,
+      strCategory: 'Ordinary Drink',
       strIBA: null,
       strAlcoholic: 'Alcoholic',
-      strGlass: cocktailGlass,
+      strGlass: 'Cocktail glass',
       strInstructions:
         'In a shaker half-filled with ice cubes, combine all of the ingredients. Shake well. Strain into a cocktail glass.',
       strInstructionsES:
@@ -644,7 +635,7 @@ const drinksMock = {
       strCategory: 'Shot',
       strIBA: null,
       strAlcoholic: 'Alcoholic',
-      strGlass: shotGlass,
+      strGlass: 'Shot glass',
       strInstructions:
         'Poor in the 151 first followed by the 101 served with a Coke or Dr Pepper chaser.',
       strInstructionsES:
@@ -658,7 +649,7 @@ const drinksMock = {
       'strInstructionsZH-HANT': null,
       strDrinkThumb:
         'https://www.thecocktaildb.com/images/media/drink/xuxpxt1479209317.jpg',
-      strIngredient1: proofRum151,
+      strIngredient1: '151 proof rum',
       strIngredient2: 'Wild Turkey',
       strIngredient3: null,
       strIngredient4: null,
@@ -699,7 +690,7 @@ const drinksMock = {
       strDrinkAlternate: null,
       strTags: null,
       strVideo: null,
-      strCategory: coffeeTea,
+      strCategory: 'Coffee / Tea',
       strIBA: null,
       strAlcoholic: 'Alcoholic',
       strGlass: 'Beer mug',
@@ -717,7 +708,7 @@ const drinksMock = {
       strDrinkThumb:
         'https://www.thecocktaildb.com/images/media/drink/upusyu1472667977.jpg',
       strIngredient1: 'Whisky',
-      strIngredient2: baileysIrishCream,
+      strIngredient2: 'Baileys irish cream',
       strIngredient3: 'Coffee',
       strIngredient4: null,
       strIngredient5: null,
@@ -760,7 +751,7 @@ const drinksMock = {
       strCategory: 'Shot',
       strIBA: 'New Era Drinks',
       strAlcoholic: 'Alcoholic',
-      strGlass: shotGlass,
+      strGlass: 'Shot glass',
       strInstructions:
         'Layer ingredients into a shot glass. Serve with a stirrer.',
       strInstructionsES: null,
@@ -773,8 +764,8 @@ const drinksMock = {
       'strInstructionsZH-HANT': null,
       strDrinkThumb:
         'https://www.thecocktaildb.com/images/media/drink/5a3vg61504372070.jpg',
-      strIngredient1: baileysIrishCream,
-      strIngredient2: grandMarnier,
+      strIngredient1: 'Baileys irish cream',
+      strIngredient2: 'Grand Marnier',
       strIngredient3: 'Kahlua',
       strIngredient4: null,
       strIngredient5: null,
@@ -814,10 +805,10 @@ const drinksMock = {
       strDrinkAlternate: null,
       strTags: 'IBA,ContemporaryClassic',
       strVideo: null,
-      strCategory: ordinaryDrink,
+      strCategory: 'Ordinary Drink',
       strIBA: 'Contemporary Classics',
       strAlcoholic: 'Alcoholic',
-      strGlass: cocktailGlass,
+      strGlass: 'Cocktail glass',
       strInstructions:
         'Shake together in a cocktail shaker, then strain into chilled glass. Garnish and serve.',
       strInstructionsES: null,
@@ -871,10 +862,10 @@ const drinksMock = {
       strDrinkAlternate: null,
       strTags: 'Classic,IBA',
       strVideo: 'https://www.youtube.com/watch?v=bYQTTokGkFI',
-      strCategory: ordinaryDrink,
+      strCategory: 'Ordinary Drink',
       strIBA: 'Unforgettables',
       strAlcoholic: 'Alcoholic',
-      strGlass: cocktailGlass,
+      strGlass: 'Cocktail glass',
       strInstructions:
         'Pour all ingredients into a mixing glass with ice. Stir. Strain into a cocktail glass. Garnish with a sprig of fresh mint in the drink.',
       strInstructionsES: null,
@@ -930,10 +921,10 @@ const drinksMock = {
       strDrinkAlternate: null,
       strTags: null,
       strVideo: null,
-      strCategory: ordinaryDrink,
+      strCategory: 'Ordinary Drink',
       strIBA: null,
       strAlcoholic: 'Alcoholic',
-      strGlass: cocktailGlass,
+      strGlass: 'Cocktail glass',
       strInstructions:
         'Shake ingredients with ice, strain into a cocktail glass, and serve.',
       strInstructionsES:
@@ -990,7 +981,7 @@ const drinksMock = {
       strCategory: 'Cocktail',
       strIBA: null,
       strAlcoholic: 'Alcoholic',
-      strGlass: cocktailGlass,
+      strGlass: 'Cocktail glass',
       strInstructions: 'Stir in mixing glass with ice and strain\r\n',
       strInstructionsES: null,
       strInstructionsDE: 'In Mischglas mit Eis verrühren und abseihen.',
@@ -1041,10 +1032,10 @@ const drinksMock = {
       strDrinkAlternate: null,
       strTags: null,
       strVideo: null,
-      strCategory: ordinaryDrink,
+      strCategory: 'Ordinary Drink',
       strIBA: null,
       strAlcoholic: 'Alcoholic',
-      strGlass: collinssGlass,
+      strGlass: 'Collins Glass',
       strInstructions:
         'fill glass with crushed ice. Add vodka. Add a splash of grand-marnier. Fill with o.j.',
       strInstructionsES: null,
@@ -1061,8 +1052,8 @@ const drinksMock = {
       strDrinkThumb:
         'https://www.thecocktaildb.com/images/media/drink/wwpyvr1461919316.jpg',
       strIngredient1: 'Vanilla vodka',
-      strIngredient2: grandMarnier,
-      strIngredient3: orangeJuice,
+      strIngredient2: 'Grand Marnier',
+      strIngredient3: 'Orange juice',
       strIngredient4: null,
       strIngredient5: null,
       strIngredient6: null,
@@ -1101,7 +1092,7 @@ const drinksMock = {
       strDrinkAlternate: null,
       strTags: null,
       strVideo: null,
-      strCategory: ordinaryDrink,
+      strCategory: 'Ordinary Drink',
       strIBA: null,
       strAlcoholic: 'Alcoholic',
       strGlass: 'Highball glass',
@@ -1158,7 +1149,7 @@ const drinksMock = {
       strDrinkAlternate: null,
       strTags: null,
       strVideo: null,
-      strCategory: coffeeTea,
+      strCategory: 'Coffee / Tea',
       strIBA: null,
       strAlcoholic: 'Non alcoholic',
       strGlass: 'Coffee mug',
@@ -1220,7 +1211,7 @@ const drinksMock = {
       strDrinkAlternate: null,
       strTags: null,
       strVideo: null,
-      strCategory: coffeeTea,
+      strCategory: 'Coffee / Tea',
       strIBA: null,
       strAlcoholic: 'Alcoholic',
       strGlass: 'Coffee Mug',
@@ -1237,7 +1228,7 @@ const drinksMock = {
       strDrinkThumb:
         'https://www.thecocktaildb.com/images/media/drink/kvvd4z1485621283.jpg',
       strIngredient1: 'Sambuca',
-      strIngredient2: baileysIrishCream,
+      strIngredient2: 'Baileys irish cream',
       strIngredient3: 'White Creme de Menthe',
       strIngredient4: null,
       strIngredient5: null,
@@ -1308,7 +1299,7 @@ const drinksMock = {
         'https://www.thecocktaildb.com/images/media/drink/2en3jk1509557725.jpg',
       strIngredient1: 'Rum',
       strIngredient2: 'Gold rum',
-      strIngredient3: proofRum151,
+      strIngredient3: '151 proof rum',
       strIngredient4: 'Pernod',
       strIngredient5: 'Grenadine',
       strIngredient6: 'Lime Juice',
@@ -1347,10 +1338,10 @@ const drinksMock = {
       strDrinkAlternate: null,
       strTags: null,
       strVideo: null,
-      strCategory: ordinaryDrink,
+      strCategory: 'Ordinary Drink',
       strIBA: null,
       strAlcoholic: 'Alcoholic',
-      strGlass: cocktailGlass,
+      strGlass: 'Cocktail glass',
       strInstructions:
         'Shake all ingredients with ice, strain into a chilled cocktail glass, and serve.',
       strInstructionsES: null,
@@ -1403,7 +1394,7 @@ const drinksMock = {
       strDrinkAlternate: null,
       strTags: null,
       strVideo: null,
-      strCategory: ordinaryDrink,
+      strCategory: 'Ordinary Drink',
       strIBA: null,
       strAlcoholic: 'Alcoholic',
       strGlass: 'Highball glass',
@@ -1421,7 +1412,7 @@ const drinksMock = {
       strDrinkThumb:
         'https://www.thecocktaildb.com/images/media/drink/h5za6y1582477994.jpg',
       strIngredient1: 'Strawberry schnapps',
-      strIngredient2: orangeJuice,
+      strIngredient2: 'Orange juice',
       strIngredient3: 'Cranberry juice',
       strIngredient4: 'Club soda',
       strIngredient5: null,

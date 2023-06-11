@@ -37,25 +37,25 @@ export default function Recipes() {
   const handleCategoryClick = async (strCategory) => {
     if (history.location.pathname === '/meals') {
       if (lastCategory === strCategory) {
+        setLastCategory(null);
         const apiFirstMeals = await getMealsAPI(firstItens);
         dispatch(saveRecipes(apiFirstMeals));
-        setLastCategory(null);
         return;
       }
+      setLastCategory(strCategory);
       const categoryMeals = await getMealsAPI(`filter.php?c=${strCategory}`);
       dispatch(saveRecipes(categoryMeals));
-      setLastCategory(strCategory);
       return;
     }
     if (lastCategory === strCategory) {
+      setLastCategory(null);
       const apiFirstDrinks = await getDrinksAPI(firstItens);
       dispatch(saveRecipes(apiFirstDrinks));
-      setLastCategory(null);
       return;
     }
+    setLastCategory(strCategory);
     const categoryDrinks = await getDrinksAPI(`filter.php?c=${strCategory}`);
     dispatch(saveRecipes(categoryDrinks));
-    setLastCategory(strCategory);
   };
   return (
     <>
