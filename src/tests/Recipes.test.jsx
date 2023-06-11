@@ -5,17 +5,9 @@ import { renderWithRouterAndRedux } from './helpers/renderWithRouterAndRedux';
 import App from '../App';
 import mealsMock from './helpers/mocks/meals/mealsMock';
 import categoriesMealsMock from './helpers/mocks/meals/categoriesMealsMock';
-import mealsFirstLetterSearchMock from './helpers/mocks/meals/mealsFirstLetterSearchMock';
-import nameMealsMock from './helpers/mocks/meals/nameMealsMock';
-import mealsIngredientSearchMock from './helpers/mocks/meals/mealsIngredientSearchMock';
 import drinksMock from './helpers/mocks/drinks/drinksMock';
 import categoriesDrinksMock from './helpers/mocks/drinks/categoriesDrinksMock';
-import drinksIngredientSearchMock
-  from './helpers/mocks/drinks/drinksIngredientSearchMock';
-import drinksFirstLetterSearchMock
-  from './helpers/mocks/drinks/drinksFirstLetterSearchMock';
-import drinksNameSearchMock from './helpers/mocks/drinks/drinksNameSearchMock';
-import nullAPImock from './helpers/mocks/nullAPImock';
+
 import beefCategoryMock from './helpers/mocks/meals/beefCategorymock';
 import ordinaryCategoryMock from './helpers/mocks/drinks/ordinaryCategoryMock';
 
