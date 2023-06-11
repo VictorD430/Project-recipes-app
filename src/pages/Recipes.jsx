@@ -13,7 +13,6 @@ import { saveRecipes } from '../redux/actions';
 
 import Footer from './Footer';
 
-
 export default function Recipes() {
   const firstItens = 'search.php?s=';
   const { recipes: { meals, drinks } } = useSelector((state) => state);
