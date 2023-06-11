@@ -7,8 +7,12 @@ import {
   useHistory,
 } from 'react-router-dom';
 import Header from '../components/Header';
+
 import { getDrinksAPI, getMealsAPI } from '../services/fetchAPI';
 import { saveRecipes } from '../redux/actions';
+
+import Footer from './Footer';
+
 
 export default function Recipes() {
   const firstItens = 'search.php?s=';
@@ -145,6 +149,7 @@ export default function Recipes() {
           </Switch>
         </ul>
       </main>
+      <Footer />
     </>
   );
 }
