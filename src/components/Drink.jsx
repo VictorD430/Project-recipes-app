@@ -30,7 +30,6 @@ export default function Drink({ recipe }) {
 
   const getRecommendedMeals = async () => {
     const data = await getMealsAPI('search.php?s=');
-    console.log(data);
     const [um, dois, tres, quatro, cinco, seis] = data.meals;
     setRecommendedMeals([um, dois, tres, quatro, cinco, seis]);
   };

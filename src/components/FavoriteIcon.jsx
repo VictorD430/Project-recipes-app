@@ -6,11 +6,9 @@ import favoriteImage from '../images/blackHeartIcon.svg';
 import { addOnFavoriteList, saveRecipes } from '../redux/actions';
 
 export default function FavoriteIcon({ dados }) {
-  console.log(dados);
   const recipe = dados.recipeInfo;
   const dispatch = useDispatch();
   const { type, isFavorite } = dados;
-  console.log(isFavorite);
   const imageHeart = isFavorite ? favoriteImage : notfavoriteImage;
 
   const rmvFavorite = (id, stateLS) => {
@@ -19,7 +17,6 @@ export default function FavoriteIcon({ dados }) {
     // const stateLS = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
     const arrayWithOutCurrentRecipe = stateLS
       .filter((recipeLH) => recipeLH.id !== id && recipeLH.type !== type);
-    console.log(arrayWithOutCurrentRecipe);
     localStorage.setItem('favoriteRecipes', JSON.stringify(arrayWithOutCurrentRecipe));
     dispatch(saveRecipes(arrayWithOutCurrentRecipe));
   };

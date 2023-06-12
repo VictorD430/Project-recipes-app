@@ -10,6 +10,7 @@ describe('Testando a funcionalidade da page Recipe', () => {
   const timeout = 20000;
   beforeEach(() => {
     localStorage.clear();
+    jest.clearAllMocks();
   });
   it('testando localStorage', () => {
     // const email = 'user@user.com';
@@ -55,7 +56,7 @@ describe('Testando a funcionalidade da page Recipe', () => {
   it('favoritar receita de uma bebida, salva corretamente no localStorage', async () => {
     const { history } = renderWithRouterAndRedux(<App />, {
       initialEntries: [drinkRoute] });
-    expect(history.location.pathname).toBe('/drinks/178319');
+    expect(history.location.pathname).toBe(drinkRoute);
     const loading = screen.queryByText(/loading/i);
     await waitFor(() => expect(loading).not.toBeInTheDocument(), { timeout: 15000 });
     const favorite = await screen.findByRole('button', { name: /white-heart-icon/i });
@@ -115,21 +116,23 @@ describe('Testando a funcionalidade da page Recipe', () => {
     const startRecipe = screen.queryByRole('button', { name: /start recipe/i });
     await waitFor(() => expect(startRecipe).not.toBeInTheDocument());
   }, timeout);
-  it.only(
-    'testando ao clicar no botão de compartilhar a url é copiada',
-    async () => {
-      const { history } = renderWithRouterAndRedux(<App />, {
-        initialEntries: [mealRoute] });
-      expect(history.location.pathname).toBe(mealRoute);
-      const loading = screen.queryByText(/loading/i);
-      await waitFor(() => expect(loading).not.toBeInTheDocument(), { timeout: 15000 });
-      const shareButton = await screen.findByRole('button', { name: /share-icon/i });
-      act(() => {
-        userEvent.click(shareButton);
-      });
-
-      await screen.findByText(/link copied!/i);
+  Object.assign(navigator, {
+    clipboard: {
+      writeText: () => {},
     },
-    timeout,
-  );
+  });
+  it('Testando a funcionalidade do botão de compartilhar', async () => {
+    jest.spyOn(navigator.clipboard, 'writeText');
+    const { history } = renderWithRouterAndRedux(<App />, {
+      initialEntries: [drinkRoute] });
+    expect(history.location.pathname).toBe(drinkRoute);
+    const loading = screen.queryByText(/loading/i);
+    await waitFor(() => expect(loading).not.toBeInTheDocument(), { timeout: 15000 });
+    const button = await screen.findByRole('button', { name: /share-icon/i });
+    userEvent.click(button);
+    const shareText = await screen.findByText('Link copied!');
+    expect(shareText).toBeInTheDocument();
+    await waitFor(() => expect(navigator.clipboard.writeText)
+      .toHaveBeenCalled(), { timeout: 15000 });
+  }, timeout);
 });

@@ -12,7 +12,6 @@ const INITIAL_STATE = {
 };
 
 const recipes = (state = INITIAL_STATE, { type, payload }) => {
-  console.log(state);
   switch (type) {
   case ADD_FAVORITE:
     return {

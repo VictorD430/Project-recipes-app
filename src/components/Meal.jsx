@@ -8,9 +8,6 @@ export default function Meal({ recipe }) {
   // const { recipe, type } = data;
   const recipeInfo = recipe.data;
   const { type, isFavorite } = recipe;
-  console.log(recipe);
-  console.log(type);
-  console.log(recipeInfo);
   // const { recipe: recipeInfo, type } = recipe;
   // const { recipes: { recipe } } = useSelector((state) => state);
   const ingredients = Object.entries(recipeInfo)
@@ -18,13 +15,10 @@ export default function Meal({ recipe }) {
   const measures = Object.entries(recipeInfo)
     .filter((i) => i[0].includes('strMeasure') && (i[1] !== '' && i[1] !== null));
 
-  console.log(recipeInfo);
   const [recommendedDrinks, setRecommendedDrinks] = useState([]);
 
   const getRecommendedDrinks = async () => {
     const drink = await getDrinksAPI('search.php?s=');
-    console.log(drink);
-    console.log(drink.drinks);
 
     const [um, dois, tres, quatro, cinco, seis] = drink.drinks;
     setRecommendedDrinks([um, dois, tres, quatro, cinco, seis]);
