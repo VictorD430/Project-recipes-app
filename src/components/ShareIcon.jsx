@@ -11,7 +11,7 @@ export default function ShareIcon({ pathName }) {
         right: '65px' } }
       data-testid="share-btn"
       onClick={ () => {
-        copy(pathName);
+        navigator.clipboard.writeText(pathName);
         const newDiv = document.createElement('div');
         newDiv.innerHTML = 'Link copied!';
         newDiv.style.position = 'fixed';

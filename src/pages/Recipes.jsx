@@ -88,7 +88,7 @@ export default function Recipes() {
         All
       </button>
       <main>
-        <ul>
+        <ul style={ { display: 'flex', flexWrap: 'wrap' } }>
           <Switch>
             <Route
               exact
@@ -109,7 +109,7 @@ export default function Recipes() {
                         {meal.strMeal}
                       </p>
                       <img
-                        width={ 10 }
+                        width="10"
                         data-testid={ `${index}-card-img` }
                         src={ meal.strMealThumb }
                         alt={ meal.strMeal }
@@ -136,7 +136,7 @@ export default function Recipes() {
                         {drink.strDrink}
                       </p>
                       <img
-                        width={ 10 }
+                        width="10"
                         data-testid={ `${index}-card-img` }
                         src={ drink.strDrinkThumb }
                         alt={ drink.strDrink }

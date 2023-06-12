@@ -15,8 +15,8 @@ export default function Recipe() {
   const [recipe, setRecipe] = useState({ data: [], type: 'nao_definido' });
   const nameOfPropId = `id${recipe.type[0].toUpperCase()}${recipe.type.substring(1)}`;
   const { recipes: { favoriteRecipes } } = useSelector((data) => data);
-  console.log(favoriteRecipes);
   const favoriteRecipeLH = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+  console.log(favoriteRecipes);
   /*
   const isFavorite = favoriteRecipes.some((favoriteRecipe) => {
     if( favoriteRecipe.id === recipe.data[nameOfPropId] && favoriteRecipe.type === recipe.type){
@@ -25,39 +25,25 @@ export default function Recipe() {
     }
   });// função para comparar do redux.storage
   */
-  const isFavorite = favoriteRecipeLH.some((favoriteRecipe) => {
-    if (favoriteRecipe.id === recipe
-      .data[nameOfPropId] && favoriteRecipe.type === recipe.type) {
-      console.log(favoriteRecipe, recipe);
-      return true;
-    }
-    return false;
-  });// função para comparar do localStorage
-  console.log(isFavorite);
+  const isFavorite = favoriteRecipeLH
+    .some((favoriteRecipe) => favoriteRecipe.id === recipe
+      .data[nameOfPropId] && favoriteRecipe.type === recipe.type);// função para comparar do localStorage
   const id = history.location.pathname.split('/');
   const idRecipe = id[2];
-  const nameOfType = id[1];// meals or drinks
+  // meals or drinks
 
   // const [mealOrDrink, setMealOrDrink] = useState('');
-  console.log(nameOfType);
   // const isFavorite = nameOfType === 'meals' ? favoriteMeals.some((meal)=>)
   // const dispatch = useDispatch();
 
   const getRecipeInfo = async () => {
     if (history.location.pathname.includes('/meals')) {
       const data = await getMealsAPI(`lookup.php?i=${idRecipe}`);
-      // setMealOrDrink('Meal');
-      // mealOrDrink = 'Meal'
       setRecipe({ data: data.meals[0], type: 'meal' });
-      // dispatch(saveRecipe(recipe.meals[0]));
-    } else if (history.location.pathname.includes('/drinks')) {
-      const data = await getDrinksAPI(`lookup.php?i=${idRecipe}`);
-      // setMealOrDrink('Drink');
-      // mealOrDrink = 'Drink';
-      setRecipe({ data: data.drinks[0], type: 'drink' });
-
-      // dispatch(saveRecipe(recipe.drinks[0]));
+      return;
     }
+    const data = await getDrinksAPI(`lookup.php?i=${idRecipe}`);
+    setRecipe({ data: data.drinks[0], type: 'drink' });
   };
 
   useEffect(() => {
@@ -104,7 +90,7 @@ export default function Recipe() {
 
   const btnTextElement = isContinued ? 'Continue Recipe' : 'Start Recipe';
   const actualLocation = history.location.pathname;
-  const btnElement = IdExist ? 'existe' : (
+  const btnElement = !IdExist && (
     <button
       data-testid="start-recipe-btn"
       onClick={ () => { history.push(`${actualLocation}/in-progress`); } }
@@ -115,8 +101,15 @@ export default function Recipe() {
       {btnTextElement}
     </button>
   );
-
-  if (recipe.type === 'nao_definido') {
+  return (
+    <div>
+      {recipe.type === 'nao_definido' && <div>Loading...</div>}
+      {recipe.type === 'meal' && <Meal recipe={ { ...recipe, isFavorite } } />}
+      {recipe.type === 'drink' && <Drink recipe={ { ...recipe, isFavorite } } />}
+      {recipe.type !== 'nao_definido' && btnElement}
+    </div>
+  );
+  /*  if (recipe.type === 'nao_definido') {
     return (
       <div>
         Loading...
@@ -140,5 +133,5 @@ export default function Recipe() {
         { btnElement }
       </div>
     );
-  }
+  } */
 }

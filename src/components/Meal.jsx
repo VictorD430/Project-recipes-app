@@ -62,7 +62,7 @@ export default function Meal({ recipe }) {
       <h2>Instructions</h2>
       <p data-testid="instructions">{recipeInfo.strInstructions}</p>
       {Object.keys(recipeInfo).filter((i) => i[0].includes('strYoutube'))
-        ? (
+        && (
           <iframe
             data-testid="video"
             title={ recipeInfo.strMeal }
@@ -70,7 +70,7 @@ export default function Meal({ recipe }) {
             height="315"
             src={ recipeInfo.strYoutube.replace('watch?v=', 'embed/') }
           />
-        ) : (<div />)}
+        ) }
 
       {
         recommendedDrinks.length > 0 ? (
