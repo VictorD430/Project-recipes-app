@@ -5,9 +5,6 @@ import shareImage from '../images/shareIcon.svg';
 export default function ShareIcon({ pathName }) {
   return (
     <button
-      style={ { position: 'fixed',
-        top: '10px',
-        right: '65px' } }
       data-testid="share-btn"
       onClick={ () => {
         const newDiv = document.createElement('div');
