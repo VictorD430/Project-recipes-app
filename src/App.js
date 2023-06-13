@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './pages/Login';
 import Recipes from './pages/Recipes';
 import RecipeDetails from './pages/RecipeDetails';
-import InProgress from './pages/InProgress';
+import InProgress from './pages/RecipeInProgres';
 import Profile from './pages/Profile';
 import Done from './pages/Done';
 import Favorites from './pages/Favorites';
