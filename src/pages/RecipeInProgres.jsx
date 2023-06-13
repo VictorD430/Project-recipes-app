@@ -31,7 +31,11 @@ export default function InProgress() {
     getRecipeInfo();
   }, []);
 
-  console.log(recipe);
+  function toggleLabel(index) {
+    const indexElement = document.getElementById(index);
+    console.log(indexElement);
+    indexElement.style.textDecoration = 'line-through solid rgb(0, 0, 0)';
+  }
 
   return (
     <div>
@@ -47,7 +51,12 @@ export default function InProgress() {
       <button data-testid="finish-recipe-btn">Finish</button>
       <h2>Ingredients</h2>
       {ingredients.map((i, index) => (
-        <label key={ index } data-testid={ `${index}-ingredient-step` }>
+        <label
+          key={ index }
+          data-testid={ `${index}-ingredient-step` }
+          id={ index }
+          onChange={ () => { toggleLabel(index); } }
+        >
           <input
             type="checkbox"
           />
