@@ -12,6 +12,10 @@ import beefCategoryMock from './helpers/mocks/meals/beefCategorymock';
 import ordinaryCategoryMock from './helpers/mocks/drinks/ordinaryCategoryMock';
 
 describe('Testando a funcionalidade da página Recipes', () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
+    localStorage.clear();
+  });
   it('Funcionalidade dos Filtros por categoria na rota /Meals', async () => {
     jest.spyOn(global, 'fetch');
     global.fetch.mockResolvedValue({

@@ -8,9 +8,10 @@ export default function Profile() {
   const history = useHistory();
 
   useEffect(() => {
-    const localUser = localStorage.getItem('user');
+    const localUser = JSON.parse(localStorage.getItem('user'));
     if (localUser !== null) {
-      setEmail(localUser);
+      console.log(localUser);
+      setEmail(localUser.email);
     }
   }, []);
 
