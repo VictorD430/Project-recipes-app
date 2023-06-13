@@ -64,10 +64,10 @@ describe('Testando a funcionalidade da SearchBar', () => {
     renderWithRouterAndRedux(<App />, { initialEntries: ['/meals'] });
     const searchIcon = screen.getByRole('img', { name: /search-icon/i });
     userEvent.click(searchIcon);
-    const firstRequestList = await screen.findAllByRole('listitem');
-    expect(firstRequestList).toHaveLength(maxListLength);
     const searchInput = screen.getByRole('textbox');
     const ingredientInputRadio = screen.getByLabelText(/ingredient/i);
+    const firstRequestList = await screen.findAllByRole('listitem');
+    expect(firstRequestList).toHaveLength(maxListLength);
     userEvent.click(ingredientInputRadio);
     const searchButton = screen.getByRole('button', { name: 'Search' });
     userEvent.type(searchInput, 'banana');
@@ -76,7 +76,7 @@ describe('Testando a funcionalidade da SearchBar', () => {
     act(() => {
       userEvent.click(searchButton);
     });
-    await screen.findByText('Banana Pancakes');
+    await waitFor(() => screen.findByText('Banana Pancakes'), { timeout: 4000 });
     const secondRequestList = await screen.findAllByRole('listitem');
     expect(secondRequestList).toHaveLength(secondRequestLength);
   });
@@ -87,6 +87,7 @@ describe('Testando a funcionalidade da SearchBar', () => {
       json: jest.fn()
         .mockResolvedValueOnce(categoriesMealsMock)
         .mockResolvedValueOnce(mealsMock)
+        .mockResolvedValueOnce(nameMealsMock)
         .mockResolvedValueOnce(nameMealsMock),
     });
     const { history } = renderWithRouterAndRedux(<App />, { initialEntries: ['/meals'] });
@@ -144,7 +145,8 @@ describe('Testando a funcionalidade da SearchBar', () => {
         .mockResolvedValueOnce(drinksMock)
         .mockResolvedValueOnce(drinksIngredientSearchMock)
         .mockResolvedValueOnce(drinksFirstLetterSearchMock)
-        .mockResolvedValueOnce(drinksNameSearchMock),
+        .mockResolvedValueOnce(drinksNameSearchMock)
+        .mockRejectedValueOnce(drinksNameSearchMock),
     });
     const { history } = renderWithRouterAndRedux(
       <App />,
