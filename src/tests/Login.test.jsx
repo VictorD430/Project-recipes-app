@@ -2,12 +2,12 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import App from '../App';
-import { renderWithRouter } from './helpers/renderWithRouterAndRedux';
+import { renderWithRouterAndRedux } from './helpers/renderWithRouterAndRedux';
 
 describe('Testando a funcionalidade da page Login', () => {
   it('testando inputs e localStorage', () => {
     const email = 'user@user.com';
-    const { history } = renderWithRouter(<App />);
+    const { history } = renderWithRouterAndRedux(<App />);
     expect(history.location.pathname).toBe('/');
     const emailInput = screen.getByLabelText(/email/i);
     const passwordInput = screen.getByLabelText(/password/i);

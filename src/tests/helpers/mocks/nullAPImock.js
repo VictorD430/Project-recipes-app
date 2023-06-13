@@ -1,3 +1,4 @@
 const nullAPImock = { drinks: null };
+const nullAPImock2 = { meals: null };
 
-export default nullAPImock;
+export { nullAPImock, nullAPImock2 };

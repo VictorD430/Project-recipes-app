@@ -15,11 +15,12 @@ import drinksIngredientSearchMock
 import drinksFirstLetterSearchMock
   from './helpers/mocks/drinks/drinksFirstLetterSearchMock';
 import drinksNameSearchMock from './helpers/mocks/drinks/drinksNameSearchMock';
-import nullAPImock from './helpers/mocks/nullAPImock';
+import { nullAPImock } from './helpers/mocks/nullAPImock';
 
 describe('Testando a funcionalidade da SearchBar', () => {
   afterEach(() => {
     jest.restoreAllMocks();
+    localStorage.clear();
   });
 
   it('Ao procurar por receitas através do ingrediente '

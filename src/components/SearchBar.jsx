@@ -54,7 +54,7 @@ export default function SearchBar() {
       return;
     }
     const data = await selectFetch();
-
+    console.log(data[Object.keys(data)[0]]);
     if (data[Object.keys(data)[0]] === null) {
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
       return;

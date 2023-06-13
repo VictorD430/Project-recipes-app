@@ -5,7 +5,14 @@ import SearchBar from './SearchBar';
 
 export default function Header() {
   return (
-    <header>
+    <header
+      style={ { display: 'flex',
+        justifyContent: 'space-between',
+        top: '0',
+        width: '100%',
+        zIndex: '1',
+      } }
+    >
       <nav>
         <ProfileIcon />
         <Switch>
