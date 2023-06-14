@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import FavoriteIcon from '../components/FavoriteIcon';
+import ShareIcon from '../components/ShareIcon';
 import { getDrinksAPI, getMealsAPI } from '../services/fetchAPI';
 
 export default function InProgress() {
   const history = useHistory();
-
   const [checkedIngredients, setCheckedIngredients] = useState([]);
 
   const locationPathName = history.location.pathname.split('/');
@@ -20,6 +22,17 @@ export default function InProgress() {
   ingredients.forEach((item, index) => {
     measures[index] = recipe.data[`strMeasure${index + 1}`] || ' ';
   });
+  const isAllChecked = ingredients.length === checkedIngredients.length;
+  const { recipes: { favoriteRecipes } } = useSelector((data) => data);
+  console.log(favoriteRecipes);
+
+  const nameOfPropId = `id${recipe.type[0].toUpperCase()}${recipe.type.substring(1)}`;
+  const favoriteRecipeLH = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+  console.log(favoriteRecipeLH);
+  const isFavorite = favoriteRecipeLH
+    .some((favoriteRecipe) => favoriteRecipe.id === recipe
+      .data[nameOfPropId] && favoriteRecipe.type === recipe.type);// função para comparar do localStorage
+  console.log(isFavorite);
 
   const handleIngredientCheck = (index) => {
     const ingredientIndex = checkedIngredients.indexOf(index);
@@ -70,8 +83,12 @@ export default function InProgress() {
       {type}
       <img src={ nameOfPropSRC } alt="recipe-img" data-testid="recipe-photo" />
       <h1 data-testid="recipe-title">{recipe.data.strArea}</h1>
-      <button data-testid="share-btn"> compartilhar</button>
-      <button data-testid="favorite-btn"> favoritar </button>
+      <FavoriteIcon
+        dados={ { recipeInfo: recipe.data,
+          type: type.substring(0, type.length - 1),
+          isFavorite } }
+      />
+      <ShareIcon pathName={ window.location.href } />
       <p data-testid="recipe-category">{recipe.data.strCategory}</p>
       <p data-testid="instructions">{recipe.data.strInstructions}</p>
       <h2>Ingredients</h2>
@@ -93,6 +110,7 @@ export default function InProgress() {
       <button
         data-testid="finish-recipe-btn"
         onClick={ () => history.push('/done-recipes') }
+        disabled={ !isAllChecked }
       >
         Finish
 
