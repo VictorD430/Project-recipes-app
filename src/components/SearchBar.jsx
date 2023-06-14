@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import searchImage from '../images/searchIcon.svg';
-import { saveRecipes } from '../redux/actions';
+import { saveRecipe } from '../redux/actions';
 import { getMealsAPI, getDrinksAPI } from '../services/fetchAPI';
 
 export default function SearchBar() {
@@ -54,7 +54,6 @@ export default function SearchBar() {
       return;
     }
     const data = await selectFetch();
-    console.log(data[Object.keys(data)[0]]);
     if (data[Object.keys(data)[0]] === null) {
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
       return;
@@ -67,7 +66,7 @@ export default function SearchBar() {
       history.push(`/drinks/${data.drinks[0].idDrink}`);
       return;
     }
-    dispatch(saveRecipes(data));
+    dispatch(saveRecipe(data));
   };
 
   return (

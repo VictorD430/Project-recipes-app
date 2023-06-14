@@ -46,6 +46,8 @@ export default function Drink({ recipe }) {
       <img
         data-testid="recipe-photo"
         src={ recipeInfo.strDrinkThumb }
+        width="420px"
+        height="315px"
         alt={ `imagem ${recipe.strDrink}` }
       />
       <FavoriteIcon dados={ { recipeInfo, type, isFavorite } } />

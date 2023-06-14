@@ -21,13 +21,17 @@ export default function Recipe() {
 
   useEffect(() => {
     const getRecipeInfo = async () => {
-      if (history.location.pathname.includes('/meals')) {
-        const data = await getMealsAPI(`lookup.php?i=${idRecipe}`);
-        setRecipe({ data: data.meals[0], type: 'meal' });
-        return;
+      try {
+        if (history.location.pathname.includes('/meals')) {
+          const data = await getMealsAPI(`lookup.php?i=${idRecipe}`);
+          setRecipe({ data: data.meals[0], type: 'meal' });
+        } else {
+          const data = await getDrinksAPI(`lookup.php?i=${idRecipe}`);
+          setRecipe({ data: data.drinks[0], type: 'drink' });
+        }
+      } catch (e) {
+        console.log('');
       }
-      const data = await getDrinksAPI(`lookup.php?i=${idRecipe}`);
-      setRecipe({ data: data.drinks[0], type: 'drink' });
     };
     getRecipeInfo();
   }, [idRecipe, history.location.pathname]);

@@ -10,7 +10,6 @@ export default function Profile() {
   useEffect(() => {
     const localUser = JSON.parse(localStorage.getItem('user'));
     if (localUser !== null) {
-      console.log(localUser);
       setEmail(localUser.email);
     }
   }, []);

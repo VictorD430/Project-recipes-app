@@ -2,10 +2,10 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import shareImage from '../images/shareIcon.svg';
 
-export default function ShareIcon({ pathName }) {
+export default function ShareIcon({ pathName, testid = 'share-btn' }) {
   return (
     <button
-      data-testid="share-btn"
+      data-testid={ testid }
       onClick={ () => {
         const newDiv = document.createElement('div');
         newDiv.innerHTML = 'Link copied!';
@@ -15,10 +15,11 @@ export default function ShareIcon({ pathName }) {
         document.body.appendChild(newDiv);
         navigator.clipboard.writeText(pathName);
       } }
+      src={ shareImage }
     >
       <img
-        src={ shareImage }
         alt="share-icon"
+        src={ shareImage }
       />
     </button>
   );
@@ -26,4 +27,5 @@ export default function ShareIcon({ pathName }) {
 
 ShareIcon.propTypes = {
   pathName: PropTypes.string.isRequired,
+  testid: PropTypes.string,
 };
