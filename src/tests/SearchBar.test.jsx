@@ -63,7 +63,9 @@ describe('Testando a funcionalidade da SearchBar', () => {
     });
     renderWithRouterAndRedux(<App />, { initialEntries: ['/meals'] });
     const searchIcon = screen.getByRole('img', { name: /search-icon/i });
-    userEvent.click(searchIcon);
+    act(() => {
+      userEvent.click(searchIcon);
+    });
     const searchInput = screen.getByRole('textbox');
     const ingredientInputRadio = screen.getByLabelText(/ingredient/i);
     const firstRequestList = await screen.findAllByRole('listitem');
@@ -93,7 +95,9 @@ describe('Testando a funcionalidade da SearchBar', () => {
     const { history } = renderWithRouterAndRedux(<App />, { initialEntries: ['/meals'] });
     await waitFor(() => screen.findByText('Corba'));
     const searchIcon = screen.getByRole('img', { name: /search-icon/i });
-    userEvent.click(searchIcon);
+    act(() => {
+      userEvent.click(searchIcon);
+    });
     const searchInput = screen.getByRole('textbox');
     const nameInputRadio = screen.getByLabelText(/name/i);
     userEvent.click(nameInputRadio);

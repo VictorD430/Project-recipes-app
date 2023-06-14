@@ -9,6 +9,7 @@ export default function Favorites() {
   const favorites = useSelector((s) => s.recipes.favoriteRecipes);
   const [filter, setFilter] = useState('All');
   const initialURL = `http://${window.location.href.split('/')[2]}`;
+
   return (
     <div>
       <Header />
