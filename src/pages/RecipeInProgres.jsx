@@ -4,6 +4,9 @@ import { getDrinksAPI, getMealsAPI } from '../services/fetchAPI';
 
 export default function InProgress() {
   const history = useHistory();
+
+  const [checkedIngredients, setCheckedIngredients] = useState([]);
+
   const locationPathName = history.location.pathname.split('/');
   const type = locationPathName[1];
   const id = locationPathName[2];
@@ -18,6 +21,24 @@ export default function InProgress() {
     measures[index] = recipe.data[`strMeasure${index + 1}`] || ' ';
   });
 
+  const handleIngredientCheck = (index) => {
+    const ingredientIndex = checkedIngredients.indexOf(index);
+    if (ingredientIndex > +'-1') {
+      const updatedIngredients = [...checkedIngredients];
+      updatedIngredients.splice(ingredientIndex, 1);
+      setCheckedIngredients(updatedIngredients);
+    } else {
+      setCheckedIngredients([...checkedIngredients, index]);
+    }
+  };
+
+  useEffect(() => {
+    const savedIngredients = localStorage.getItem('inProgressRecipes');
+    if (savedIngredients) {
+      setCheckedIngredients(JSON.parse(savedIngredients));
+    }
+  }, []);
+
   useEffect(() => {
     const getRecipeInfo = async () => {
       if (type === 'meals') {
@@ -31,10 +52,15 @@ export default function InProgress() {
     getRecipeInfo();
   }, []);
 
+  useEffect(() => {
+    localStorage.setItem('inProgressRecipes', JSON.stringify(checkedIngredients));
+  }, [checkedIngredients]);
+
   function toggleLabel(index) {
     const indexElement = document.getElementById(index);
     console.log(indexElement);
     indexElement.style.textDecoration = 'line-through solid rgb(0, 0, 0)';
+    handleIngredientCheck(index);
   }
 
   return (
@@ -48,7 +74,6 @@ export default function InProgress() {
       <button data-testid="favorite-btn"> favoritar </button>
       <p data-testid="recipe-category">{recipe.data.strCategory}</p>
       <p data-testid="instructions">{recipe.data.strInstructions}</p>
-      <button data-testid="finish-recipe-btn">Finish</button>
       <h2>Ingredients</h2>
       {ingredients.map((i, index) => (
         <label
@@ -59,11 +84,19 @@ export default function InProgress() {
         >
           <input
             type="checkbox"
+            checked={ checkedIngredients.includes(index) }
           />
           {
             `${i[1]} - ${measures[index]}`
           }
         </label>))}
+      <button
+        data-testid="finish-recipe-btn"
+        onClick={ () => history.push('/done-recipes') }
+      >
+        Finish
+
+      </button>
 
     </div>
   );
