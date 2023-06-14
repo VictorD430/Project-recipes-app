@@ -15,6 +15,7 @@ export default function DoneCard({
   alcohoolicOrNot,
 }) {
   const alcoOrNat = type === 'meal' ? nationality : alcohoolicOrNot;
+  const initialURL = `http://${window.location.href.split('/')[2]}`;
 
   return (
     <li
@@ -45,8 +46,8 @@ export default function DoneCard({
           ))}
         </div>
         <ShareIcon
-          data-testid={ `${index}-horizontal-share-btn` }
-          pathName={ `/${type}s/${id}` }
+          pathName={ `${initialURL}/${type}s/${id}` }
+          testid={ `${index}-horizontal-share-btn` }
         />
       </Link>
     </li>

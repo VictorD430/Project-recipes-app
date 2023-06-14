@@ -32,7 +32,6 @@ export default function DoneRecipes() {
   // ]));
   // console.log(mockRecipes);
   const recipes = JSON.parse(localStorage.getItem('doneRecipes'));
-  console.log(recipes);
 
   function renderCard() {
     if (recipes === null || recipes.length === 0) {
