@@ -75,6 +75,11 @@ export default function InProgress() {
     indexElement.style.textDecoration = 'line-through solid rgb(0, 0, 0)';
     handleIngredientCheck(index);
   }
+  console.log(window.location.href);
+  const fullPathName = window.location.href;
+  const inProgressLenght = 12;
+  const recipeDetailsPathName = fullPathName
+    .substring(0, fullPathName.length - inProgressLenght);
 
   return (
     <div>
@@ -88,7 +93,7 @@ export default function InProgress() {
           type: type.substring(0, type.length - 1),
           isFavorite } }
       />
-      <ShareIcon pathName={ window.location.href } />
+      <ShareIcon pathName={ recipeDetailsPathName } />
       <p data-testid="recipe-category">{recipe.data.strCategory}</p>
       <p data-testid="instructions">{recipe.data.strInstructions}</p>
       <h2>Ingredients</h2>
