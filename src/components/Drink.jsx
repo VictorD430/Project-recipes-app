@@ -4,14 +4,6 @@ import { getMealsAPI } from '../services/fetchAPI';
 import FavoriteIcon from './FavoriteIcon';
 import ShareIcon from './ShareIcon';
 
-// export default function Meal({ recipe }) {
-//
-//   const recipeInfo = recipe.data;
-//   const { type } = recipe;
-//   console.log(recipe);
-//   console.log(type);
-//   console.log(recipeInfo);
-
 export default function Drink({ recipe }) {
   const recipeInfo = recipe.data;
   const { type, isFavorite } = recipe;

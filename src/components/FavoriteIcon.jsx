@@ -12,20 +12,13 @@ export default function FavoriteIcon({ dados, testid = 'favorite-btn' }) {
   const imageHeart = isFavorite ? favoriteImage : notfavoriteImage;
 
   const rmvFavorite = (id, stateLS) => {
-    // const upperCaseName = `${type[0].toUpperCase()}${type.substring(1)}`;
-    // const nameOfPropId = `id${upperCaseName}`;
-    // const stateLS = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
     const arrayWithOutCurrentRecipe = stateLS
-      .filter((recipeLH) => recipeLH.id !== id && recipeLH.type !== type);
+      .filter((recipeLH) => recipeLH.id !== id);
     localStorage.setItem('favoriteRecipes', JSON.stringify(arrayWithOutCurrentRecipe));
     dispatch(saveRecipes(arrayWithOutCurrentRecipe));
   };
 
   const addFavorite = (id, stateLS, upperCaseName) => {
-    // const upperCaseName = `${type[0].toUpperCase()}${type.substring(1)}`;
-    // const nameOfPropId = `id${upperCaseName}`;
-    // const stateLS = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
-
     const recipeObject = {
       id,
       type,
@@ -43,7 +36,8 @@ export default function FavoriteIcon({ dados, testid = 'favorite-btn' }) {
 
   const toggleFavorite = () => {
     const upperCaseName = `${type[0].toUpperCase()}${type.substring(1)}`;
-    const nameOfPropId = `id${upperCaseName}`;
+    const nameOfPropId = recipe[`id${upperCaseName}`]
+      ? `id${upperCaseName}` : 'id';
     const stateLS = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
     if (isFavorite) {
       rmvFavorite(recipe[nameOfPropId], stateLS);

@@ -14,6 +14,9 @@ export default function ShareIcon({ pathName, testid = 'share-btn' }) {
         newDiv.style.left = '40px';
         document.body.appendChild(newDiv);
         navigator.clipboard.writeText(pathName);
+        setTimeout(() => {
+          newDiv.remove();
+        }, +'1000');
       } }
       src={ shareImage }
     >

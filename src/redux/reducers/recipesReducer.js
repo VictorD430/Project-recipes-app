@@ -23,17 +23,6 @@ const recipes = (state = INITIAL_STATE, { type, payload }) => {
       ...state,
       favoriteRecipes: payload,
     };
-    /*  case SAVE_FAVORITE_MEAL:
-      console.log(state);
-      return {
-        ...state,
-        favoriteMeals: [...state.favoriteMeals, payload],
-    };
-  case SAVE_FAVORITE_DRINK:
-    return {
-      ...state,
-      favoriteDrinks: [...state.favoriteDrinks, payload],
-    }; */
   case SAVE_RECIPE:
     return {
       ...state,

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import { getDrinksAPI, getMealsAPI } from '../services/fetchAPI';
 import Meal from '../components/Meal';
 import Drink from '../components/Drink';
@@ -10,23 +11,19 @@ export default function Recipe() {
   const [recipe, setRecipe] = useState({ data: [], type: 'nao_definido' });
   const nameOfPropId = `id${recipe.type[0].toUpperCase()}${recipe.type.substring(1)}`;
   const { recipes: { favoriteRecipes } } = useSelector((data) => data);
-  const favoriteRecipeLH = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
-  console.log(favoriteRecipes);
-
-  const isFavorite = favoriteRecipeLH
+  const isFavorite = favoriteRecipes
     .some((favoriteRecipe) => favoriteRecipe.id === recipe
-      .data[nameOfPropId] && favoriteRecipe.type === recipe.type);// função para comparar do localStorage
-  const id = history.location.pathname.split('/');
-  const idRecipe = id[2];
+      .data[nameOfPropId] && favoriteRecipe.type === recipe.type);
+  const { recipeId } = useParams();
 
   useEffect(() => {
     const getRecipeInfo = async () => {
       try {
         if (history.location.pathname.includes('/meals')) {
-          const data = await getMealsAPI(`lookup.php?i=${idRecipe}`);
+          const data = await getMealsAPI(`lookup.php?i=${recipeId}`);
           setRecipe({ data: data.meals[0], type: 'meal' });
         } else {
-          const data = await getDrinksAPI(`lookup.php?i=${idRecipe}`);
+          const data = await getDrinksAPI(`lookup.php?i=${recipeId}`);
           setRecipe({ data: data.drinks[0], type: 'drink' });
         }
       } catch (e) {
@@ -34,14 +31,13 @@ export default function Recipe() {
       }
     };
     getRecipeInfo();
-  }, [idRecipe, history.location.pathname]);
+  }, [recipeId, history.location.pathname]);
 
   let IdExist = false;
   let isContinued = false;
 
   const recipesDoneLS = JSON.parse(localStorage.getItem('doneRecipes'));
   const recipesContinuesLS = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  // const nameOfPropId = `id${recipe.type[0].toUpperCase() + recipe.type.substring(1)}`;
 
   if (recipesDoneLS && recipe.type !== 'nao_definido') {
     const recipesByActualType = recipesDoneLS.filter((item) => item.type === recipe.type);
