@@ -9,7 +9,7 @@ import {
 import Header from '../components/Header';
 
 import { getDrinksAPI, getMealsAPI } from '../services/fetchAPI';
-import { saveRecipes } from '../redux/actions';
+import { saveRecipe } from '../redux/actions';
 
 import Footer from './Footer';
 
@@ -25,40 +25,40 @@ export default function Recipes() {
       if (history.location.pathname === '/meals') {
         const apiCategories = await getMealsAPI('list.php?c=list');
         const apiFirstMeals = await getMealsAPI(firstItens);
-        dispatch(saveRecipes(apiFirstMeals));
         setCategories(apiCategories.meals);
+        dispatch(saveRecipe(apiFirstMeals));
         return;
       }
       const apiCategories = await getDrinksAPI('list.php?c=list');
       const apiFirstDrinks = await getDrinksAPI(firstItens);
-      dispatch(saveRecipes(apiFirstDrinks));
       setCategories(apiCategories.drinks);
+      dispatch(saveRecipe(apiFirstDrinks));
     };
     makeFetch();
-  }, [setCategories, history, dispatch]);
+  }, [dispatch, history.location.pathname]);
 
   const handleCategoryClick = async (strCategory) => {
     if (history.location.pathname === '/meals') {
       if (lastCategory === strCategory) {
         setLastCategory(null);
         const apiFirstMeals = await getMealsAPI(firstItens);
-        dispatch(saveRecipes(apiFirstMeals));
+        dispatch(saveRecipe(apiFirstMeals));
         return;
       }
       setLastCategory(strCategory);
       const categoryMeals = await getMealsAPI(`filter.php?c=${strCategory}`);
-      dispatch(saveRecipes(categoryMeals));
+      dispatch(saveRecipe(categoryMeals));
       return;
     }
     if (lastCategory === strCategory) {
       setLastCategory(null);
       const apiFirstDrinks = await getDrinksAPI(firstItens);
-      dispatch(saveRecipes(apiFirstDrinks));
+      dispatch(saveRecipe(apiFirstDrinks));
       return;
     }
     setLastCategory(strCategory);
     const categoryDrinks = await getDrinksAPI(`filter.php?c=${strCategory}`);
-    dispatch(saveRecipes(categoryDrinks));
+    dispatch(saveRecipe(categoryDrinks));
   };
   return (
     <>
@@ -78,11 +78,11 @@ export default function Recipes() {
         onClick={ async () => {
           if (history.location.pathname === '/meals') {
             const apiFirstMeals = await getMealsAPI(firstItens);
-            dispatch(saveRecipes(apiFirstMeals));
+            dispatch(saveRecipe(apiFirstMeals));
             return;
           }
           const apiFirstDrinks = await getDrinksAPI(firstItens);
-          dispatch(saveRecipes(apiFirstDrinks));
+          dispatch(saveRecipe(apiFirstDrinks));
         } }
       >
         All
@@ -109,7 +109,7 @@ export default function Recipes() {
                         {meal.strMeal}
                       </p>
                       <img
-                        width="10"
+                        width="100px"
                         data-testid={ `${index}-card-img` }
                         src={ meal.strMealThumb }
                         alt={ meal.strMeal }
@@ -136,7 +136,7 @@ export default function Recipes() {
                         {drink.strDrink}
                       </p>
                       <img
-                        width="10"
+                        width="100px"
                         data-testid={ `${index}-card-img` }
                         src={ drink.strDrinkThumb }
                         alt={ drink.strDrink }

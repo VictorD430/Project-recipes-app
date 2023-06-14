@@ -5,7 +5,7 @@ import notfavoriteImage from '../images/whiteHeartIcon.svg';
 import favoriteImage from '../images/blackHeartIcon.svg';
 import { addOnFavoriteList, saveRecipes } from '../redux/actions';
 
-export default function FavoriteIcon({ dados }) {
+export default function FavoriteIcon({ dados, testid = 'favorite-btn' }) {
   const recipe = dados.recipeInfo;
   const dispatch = useDispatch();
   const { type, isFavorite } = dados;
@@ -54,13 +54,11 @@ export default function FavoriteIcon({ dados }) {
 
   return (
     <button
-      data-testid="favorite-btn"
+      data-testid={ testid }
       onClick={ toggleFavorite }
       className="favorite-btn"
       src={ imageHeart }
-      style={ { position: 'fixed',
-        top: '20px',
-        right: '10px' } }
+
     >
       <img
         src={ imageHeart }
@@ -72,5 +70,5 @@ export default function FavoriteIcon({ dados }) {
 
 FavoriteIcon.propTypes = {
   dados: PropTypes.shape().isRequired,
-
+  testid: PropTypes.string,
 };

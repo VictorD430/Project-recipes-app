@@ -8,7 +8,7 @@ const INITIAL_STATE = {
   meals: [],
   drinks: [],
   recipe: [],
-  favoriteRecipes: [],
+  favoriteRecipes: JSON.parse(localStorage.getItem('favoriteRecipes')) || [],
 };
 
 const recipes = (state = INITIAL_STATE, { type, payload }) => {
@@ -21,7 +21,7 @@ const recipes = (state = INITIAL_STATE, { type, payload }) => {
   case SAVE_RECIPES:
     return {
       ...state,
-      ...payload,
+      favoriteRecipes: payload,
     };
     /*  case SAVE_FAVORITE_MEAL:
       console.log(state);
@@ -37,7 +37,7 @@ const recipes = (state = INITIAL_STATE, { type, payload }) => {
   case SAVE_RECIPE:
     return {
       ...state,
-      recipe: payload,
+      ...payload,
     };
   default: { return state; }
   }

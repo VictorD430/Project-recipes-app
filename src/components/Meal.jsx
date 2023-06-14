@@ -31,10 +31,11 @@ export default function Meal({ recipe }) {
   const visibilityOfRecomendations = ['block', 'block', 'none', 'none', 'none', 'none'];
 
   return (
-    <div>
+    <>
       Recipes - Meal
       <img
         data-testid="recipe-photo"
+        width="200px"
         src={ recipeInfo.strMealThumb }
         alt={ `imagem ${recipeInfo.strMeal}` }
       />
@@ -83,7 +84,7 @@ export default function Meal({ recipe }) {
           </div>
         ) : (<div>Sem recomendações ainda</div>)
       }
-    </div>
+    </>
   );
 }
 
