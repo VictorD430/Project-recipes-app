@@ -1,9 +1,5 @@
 const INITIAL_STATE = {
   userEmail: '',
-  userRecipes: {
-    inProgress: {},
-    favorites: [],
-  },
 };
 
 const user = (state = INITIAL_STATE, action) => {

@@ -1,15 +1,14 @@
 import React from 'react';
 import './App.css';
 import { Route, Switch } from 'react-router-dom/cjs/react-router-dom.min';
-// import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './pages/Login';
 import Recipes from './pages/Recipes';
 import RecipeDetails from './pages/RecipeDetails';
 import InProgress from './pages/RecipeInProgres';
 import Profile from './pages/Profile';
-import Done from './pages/Done';
-import Favorites from './pages/Favorites';
+import DoneRecipes from './pages/DoneRecipes';
+import FavoriteRecipes from './pages/FavoriteRecipes';
 
 function App() {
   return (
@@ -35,8 +34,8 @@ function App() {
         <Route exact path="/drinks/:recipeId/in-progress" component={ InProgress } />
 
         <Route exact path="/profile" component={ Profile } />
-        <Route exact path="/done-recipes" component={ Done } />
-        <Route exact path="/favorite-recipes" component={ Favorites } />
+        <Route exact path="/done-recipes" component={ DoneRecipes } />
+        <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
       </Switch>
     </div>
   );
