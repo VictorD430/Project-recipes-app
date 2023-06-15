@@ -75,7 +75,7 @@ export default function InProgress() {
     indexElement.style.textDecoration = 'line-through solid rgb(0, 0, 0)';
     handleIngredientCheck(index);
   }
-  console.log(window.location.href);
+
   const fullPathName = window.location.href;
   const inProgressLenght = 12;
   const recipeDetailsPathName = fullPathName
