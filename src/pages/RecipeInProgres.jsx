@@ -75,6 +75,36 @@ export default function InProgress() {
     indexElement.style.textDecoration = 'line-through solid rgb(0, 0, 0)';
     handleIngredientCheck(index);
   }
+  // "id": "178319",
+  // "nationality": "",
+  // "name": "Aquamarine",
+  // "category": "Cocktail",
+  // "image": "https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg",
+  // "tags": [],
+  // "alcoholicOrNot": "Alcoholic",
+  // "type": "drink",
+  // "doneDate": dateNow.toISOString(),
+  const handleFinishRecipe = () => {
+    const DATE_LENGTH = 10;
+    const doneRecipe = {
+      id: recipe.data[nameOfPropId],
+      nationality: recipe.data.strArea || '',
+      name: recipe.data.strMeal || recipe.data.strDrink,
+      category: recipe.data.strCategory || '',
+      image: recipe.data.strMealThumb || recipe.data.strDrinkThumb,
+      tags: recipe.data.strTags ? recipe.data.strTags.split(',') : [],
+      alcoholicOrNot: recipe.data.strAlcoholic || '',
+      type: recipe.type,
+      doneDate: new Date().toISOString().slice(0, DATE_LENGTH),
+    };
+
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+    doneRecipes.push(doneRecipe);
+    localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+
+    history.push('/done-recipes');
+    console.log(doneRecipes);
+  };
 
   return (
     <div>
@@ -109,7 +139,7 @@ export default function InProgress() {
         </label>))}
       <button
         data-testid="finish-recipe-btn"
-        onClick={ () => history.push('/done-recipes') }
+        onClick={ handleFinishRecipe }
         disabled={ !isAllChecked }
       >
         Finish
