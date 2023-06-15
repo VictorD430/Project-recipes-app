@@ -95,7 +95,7 @@ export default function InProgress() {
       tags: recipe.data.strTags ? recipe.data.strTags.split(',') : [],
       alcoholicOrNot: recipe.data.strAlcoholic || '',
       type: recipe.type,
-      doneDate: new Date().toISOString().slice(0, DATE_LENGTH),
+      doneDate: new Date().toISOString(),//.slice(0, DATE_LENGTH),
     };
 
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
