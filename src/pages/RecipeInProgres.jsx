@@ -106,6 +106,11 @@ export default function InProgress() {
     console.log(doneRecipes);
   };
 
+  const fullPathName = window.location.href;
+  const inProgressLenght = 12;
+  const recipeDetailsPathName = fullPathName
+    .substring(0, fullPathName.length - inProgressLenght);
+
   return (
     <div>
       InProgress -
@@ -118,7 +123,7 @@ export default function InProgress() {
           type: type.substring(0, type.length - 1),
           isFavorite } }
       />
-      <ShareIcon pathName={ window.location.href } />
+      <ShareIcon pathName={ recipeDetailsPathName } />
       <p data-testid="recipe-category">{recipe.data.strCategory}</p>
       <p data-testid="instructions">{recipe.data.strInstructions}</p>
       <h2>Ingredients</h2>
