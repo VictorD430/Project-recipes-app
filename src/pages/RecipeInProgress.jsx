@@ -20,19 +20,15 @@ export default function InProgress() {
     .filter((i) => i[0].includes('strIngredient') && (i[1] !== '' && i[1] !== null));
   const measures = { ...ingredients };
   ingredients.forEach((item, index) => {
-    measures[index] = recipe.data[`strMeasure${index + 1}`] || ' ';
+    measures[index] = recipe.data[`strMeasure${index + 1}`];
   });
   const isAllChecked = ingredients.length === checkedIngredients.length;
   const { recipes: { favoriteRecipes } } = useSelector((data) => data);
-  console.log(favoriteRecipes);
 
   const nameOfPropId = `id${recipe.type[0].toUpperCase()}${recipe.type.substring(1)}`;
-  const favoriteRecipeLH = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
-  console.log(favoriteRecipeLH);
-  const isFavorite = favoriteRecipeLH
+  const isFavorite = favoriteRecipes
     .some((favoriteRecipe) => favoriteRecipe.id === recipe
       .data[nameOfPropId] && favoriteRecipe.type === recipe.type);// função para comparar do localStorage
-  console.log(isFavorite);
 
   const handleIngredientCheck = (index) => {
     const ingredientIndex = checkedIngredients.indexOf(index);
@@ -76,7 +72,6 @@ export default function InProgress() {
 
   function toggleLabel(index) {
     const indexElement = document.getElementById(index);
-    console.log(indexElement);
     indexElement.style.textDecoration = 'line-through solid rgb(0, 0, 0)';
     handleIngredientCheck(index);
   }
@@ -86,7 +81,7 @@ export default function InProgress() {
       id: recipe.data[nameOfPropId],
       nationality: recipe.data.strArea || '',
       name: recipe.data.strMeal || recipe.data.strDrink,
-      category: recipe.data.strCategory || '',
+      category: recipe.data.strCategory,
       image: recipe.data.strMealThumb || recipe.data.strDrinkThumb,
       tags: recipe.data.strTags ? recipe.data.strTags.split(',') : [],
       alcoholicOrNot: recipe.data.strAlcoholic || '',
@@ -99,7 +94,6 @@ export default function InProgress() {
     localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
 
     history.push('/done-recipes');
-    console.log(doneRecipes);
   };
 
   const fullPathName = window.location.href;
@@ -132,6 +126,7 @@ export default function InProgress() {
         >
           <input
             type="checkbox"
+            onChange={ () => toggleLabel(index) }
             checked={ checkedIngredients.includes(index) }
           />
           {

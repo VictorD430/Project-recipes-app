@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react';
+import { cleanup, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import App from '../App';
@@ -24,4 +24,5 @@ describe('Testando a funcionalidade da page Login', () => {
     expect(emailOnLStorage).toBe(email);
     expect(history.location.pathname).toBe('/meals');
   });
+  cleanup();
 });

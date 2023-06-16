@@ -14,17 +14,7 @@ export const saveRecipe = (payload) => ({
   type: SAVE_RECIPE,
   payload,
 });
-/*
-export const saveFavoriteDrink = (payload) => ({
-  type: SAVE_FAVORITE_DRINK,
-  payload,
-});
 
-export const saveFavoriteMeal = (payload) => ({
-  type: SAVE_FAVORITE_MEAL,
-  payload,
-});
-*/
 export const addOnFavoriteList = (payload) => ({
   type: ADD_FAVORITE,
   payload,

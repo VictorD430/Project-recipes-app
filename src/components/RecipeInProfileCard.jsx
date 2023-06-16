@@ -13,8 +13,8 @@ export default function RecipeInProfileCard({
   index,
   tags,
   type,
-  nationality = '',
-  alcoholicOrNot = '',
+  nationality,
+  alcoholicOrNot,
 }) {
   const alcoOrNat = type === 'meal' ? nationality : alcoholicOrNot;
   const initialURL = `http://${window.location.href.split('/')[2]}`;
@@ -102,8 +102,3 @@ RecipeInProfileCard.propTypes = {
   }),
   type: PropTypes.string,
 }.isRequired;
-
-/* DoneCard.propTypes = {
-  id: PropTypes.number,
-  index: PropTypes.number,
-}.isRequired; */

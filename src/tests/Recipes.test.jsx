@@ -1,4 +1,4 @@
-import { screen, waitFor } from '@testing-library/react';
+import { cleanup, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import { renderWithRouterAndRedux } from './helpers/renderWithRouterAndRedux';
@@ -15,6 +15,7 @@ describe('Testando a funcionalidade da página Recipes', () => {
   afterEach(() => {
     jest.restoreAllMocks();
     localStorage.clear();
+    cleanup();
   });
   it('Funcionalidade dos Filtros por categoria na rota /Meals', async () => {
     jest.spyOn(global, 'fetch');

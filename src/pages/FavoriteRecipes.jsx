@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { useSelector } from 'react-redux';
 import Header from '../components/Header';
-import ShareIcon from '../components/ShareIcon';
-import FavoriteIcon from '../components/FavoriteIcon';
+import RecipeInProfileCard from '../components/RecipeInProfileCard';
 
 export default function Favorites() {
   const favorites = useSelector((s) => s.recipes.favoriteRecipes);
   const [filter, setFilter] = useState('All');
-  const initialURL = `http://${window.location.href.split('/')[2]}`;
 
   return (
     <div>
@@ -20,63 +17,37 @@ export default function Favorites() {
         All
       </button>
       <button
-        onClick={ () => setFilter('Meals') }
+        onClick={ () => setFilter('meal') }
         data-testid="filter-by-meal-btn"
       >
         Meals
       </button>
       <button
         data-testid="filter-by-drink-btn"
-        onClick={ () => setFilter('Drinks') }
+        onClick={ () => setFilter('drink') }
       >
         Drinks
       </button>
-      {
-        favorites
-          .filter((recipe) => {
-            switch (filter) {
-            case 'Meals':
-              return recipe.type === 'meal';
-            case 'Drinks':
-              return recipe.type === 'drink';
-            default:
-              return true;
-            }
-          })
-          .map((recipe, index) => (
-            <div key={ recipe.id }>
-              <Link
-                to={ `/${recipe.type}s/${recipe.id}` }
-              >
-                <img
-                  width="100px"
-                  src={ recipe.image }
-                  alt={ recipe.name }
-                  data-testid={ `${index}-horizontal-image` }
-                />
-                <p data-testid={ `${index}-horizontal-top-text` }>
-                  {recipe.nationality}
-                  {recipe.alcoholicOrNot}
-                  {' - '}
-                  {recipe.category}
-                </p>
-                <p data-testid={ `${index}-horizontal-name` }>
-                  {recipe.name}
-                </p>
-              </Link>
-              <ShareIcon
-                dados={ { ...recipe, recipeInfo: recipe, isFavorite: true } }
-                pathName={ `${initialURL}/${recipe.type}s/${recipe.id}` }
-                testid={ `${index}-horizontal-share-btn` }
+      <ul>
+        {
+          favorites
+            .filter((recipe) => {
+              switch (filter) {
+              case 'meal':
+              case 'drink':
+                return recipe.type === filter;
+              default:
+                return true;
+              }
+            }).map((recipe, index) => (
+              <RecipeInProfileCard
+                key={ recipe.id }
+                index={ index }
+                { ...recipe }
               />
-              <FavoriteIcon
-                testid={ `${index}-horizontal-favorite-btn` }
-                dados={ { ...recipe, recipeInfo: recipe, isFavorite: true } }
-                pathName={ `${initialURL}/${recipe.type}s/${recipe.id}` }
-              />
-            </div>
-          ))
-      }
+            ))
+        }
+      </ul>
     </div>
   );
 }

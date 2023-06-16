@@ -4,14 +4,6 @@ import { getMealsAPI } from '../services/fetchAPI';
 import FavoriteIcon from './FavoriteIcon';
 import ShareIcon from './ShareIcon';
 
-// export default function Meal({ recipe }) {
-//
-//   const recipeInfo = recipe.data;
-//   const { type } = recipe;
-//   console.log(recipe);
-//   console.log(type);
-//   console.log(recipeInfo);
-
 export default function Drink({ recipe }) {
   const recipeInfo = recipe.data;
   const { type, isFavorite } = recipe;
@@ -21,7 +13,7 @@ export default function Drink({ recipe }) {
     .filter((i) => i[0].includes('strIngredient') && (i[1] !== '' && i[1] !== null));
   const measures = { ...ingredients };
   ingredients.forEach((item, index) => {
-    measures[index] = recipeInfo[`strMeasure${index + 1}`] || ' ';
+    measures[index] = recipeInfo[`strMeasure${index + 1}`];
   });
   const [recommendedMeals, setRecommendedMeals] = useState([]);
   // measures = Object.entries(recipe)
