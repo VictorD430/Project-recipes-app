@@ -13,8 +13,8 @@ export default function RecipeInProfileCard({
   index,
   tags,
   type,
-  nationality = '',
-  alcoholicOrNot = '',
+  nationality,
+  alcoholicOrNot,
 }) {
   const alcoOrNat = type === 'meal' ? nationality : alcoholicOrNot;
   const initialURL = `http://${window.location.href.split('/')[2]}`;
