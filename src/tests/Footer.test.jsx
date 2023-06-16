@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { cleanup, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createMemoryHistory } from 'history';
 import React from 'react';
@@ -25,4 +25,5 @@ describe('Teste do Footer', () => {
     userEvent.click(imgDrink);
     userEvent.click(imgMeals);
   });
+  cleanup();
 });

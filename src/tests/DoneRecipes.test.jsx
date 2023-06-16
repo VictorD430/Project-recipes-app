@@ -4,9 +4,9 @@ import { act } from 'react-dom/test-utils';
 import { renderWithRouterAndRedux } from './helpers/renderWithRouterAndRedux';
 import App from '../App';
 
-describe('Testes para a página FavoriteRecipes', () => {
+describe('Testes para a página doneRecipes', () => {
   const mealRecipeName = 'Spicy Arrabiata Penne';
-  const favoriteRecipes = [
+  const doneRecipes = [
     {
       id: '52771',
       type: 'meal',
@@ -15,6 +15,8 @@ describe('Testes para a página FavoriteRecipes', () => {
       alcoholicOrNot: '',
       name: mealRecipeName,
       image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
+      doneDate: '23/06/2020',
+      tags: ['Pasta', 'Curry'],
     },
     {
       id: '178319',
@@ -24,13 +26,14 @@ describe('Testes para a página FavoriteRecipes', () => {
       alcoholicOrNot: 'Alcoholic',
       name: 'Aquamarine',
       image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
+      doneDate: '23/06/2020',
+      tags: [],
     },
   ];
   const INITIAL_STATE = {
     meals: [],
     drinks: [],
     recipe: [],
-    favoriteRecipes: [],
   };
   afterEach(() => {
     window.localStorage.clear();
@@ -38,34 +41,32 @@ describe('Testes para a página FavoriteRecipes', () => {
   });
   it('Testando se ao renderizar a página com receitas na lista de favoritos'
   + 'renderiza a lista corretamente.', () => {
-    window.localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
-    INITIAL_STATE.favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    window.localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+    INITIAL_STATE.doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
     renderWithRouterAndRedux(
       <App />,
-      { initialEntries: ['/favorite-recipes'],
+      { initialEntries: ['/done-recipes'],
         initialState: { recipes: INITIAL_STATE },
       },
     );
     expect(localStorage
-      .getItem('favoriteRecipes')).toEqual(JSON.stringify(favoriteRecipes));
+      .getItem('doneRecipes')).toEqual(JSON.stringify(doneRecipes));
     screen.getByRole('img', { name: /spicy arrabiata penne/i });
-    expect(screen.getByTestId('0-horizontal-favorite-btn')).toBeInTheDocument();
+    expect(screen.getByTestId('0-horizontal-share-btn')).toBeInTheDocument();
   });
 
   it('Testando a funcionalidade dos Filtros', () => {
-    window.localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
-    INITIAL_STATE.favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const { store } = renderWithRouterAndRedux(
+    window.localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+    INITIAL_STATE.doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    renderWithRouterAndRedux(
       <App />,
-      { initialEntries: ['/favorite-recipes'],
+      { initialEntries: ['/done-recipes'],
         initialState: { recipes: INITIAL_STATE },
       },
     );
-    const { recipes } = store.getState();
-    expect(recipes.favoriteRecipes).toEqual(favoriteRecipes);
     const allFilterBtn = screen.getByRole('button', { name: 'All' });
-    const mealsFilterBtn = screen.getByRole('button', { name: 'Meals' });
-    const drinksFilterBtn = screen.getByRole('button', { name: 'Drinks' });
+    const mealsFilterBtn = screen.getByRole('button', { name: 'Meal' });
+    const drinksFilterBtn = screen.getByRole('button', { name: 'Drink' });
     screen.getByText(mealRecipeName);
     screen.getByText('Aquamarine');
     act(() => {
@@ -83,12 +84,5 @@ describe('Testes para a página FavoriteRecipes', () => {
     });
     screen.getByText('Spicy Arrabiata Penne');
     screen.getByText('Aquamarine');
-    const [firstFavoriteBtn] = screen
-      .getAllByRole('button', { name: 'black-heart-icon' });
-    act(() => {
-      userEvent.click(firstFavoriteBtn);
-    });
-    expect(screen.queryByText(/spicy Arrabiata penne/i)).not.toBeInTheDocument();
-    screen.getByText(/aquamarine/i);
   });
 });

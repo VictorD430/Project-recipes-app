@@ -91,7 +91,8 @@ describe('Testando a funcionalidade da SearchBar', () => {
         .mockResolvedValueOnce(categoriesMealsMock)
         .mockResolvedValueOnce(mealsMock)
         .mockResolvedValueOnce(nameMealsMock)
-        .mockResolvedValueOnce(nameMealsMock),
+        .mockResolvedValueOnce(nameMealsMock)
+        .mockResolvedValueOnce(drinksMock),
     });
     const { history } = renderWithRouterAndRedux(<App />, { initialEntries: ['/meals'] });
     await waitFor(() => screen.findByText('Corba'));

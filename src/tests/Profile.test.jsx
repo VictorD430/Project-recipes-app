@@ -1,5 +1,5 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { cleanup, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 import Profile from '../pages/Profile';
@@ -54,4 +54,5 @@ describe('Teste do componet "Profile"', () => {
 
   test('Testa se o localStorage se limpa apos clicar em logout', () => {});
   test('', () => {});
+  cleanup();
 });

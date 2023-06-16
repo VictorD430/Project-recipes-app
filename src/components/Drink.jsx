@@ -13,7 +13,7 @@ export default function Drink({ recipe }) {
     .filter((i) => i[0].includes('strIngredient') && (i[1] !== '' && i[1] !== null));
   const measures = { ...ingredients };
   ingredients.forEach((item, index) => {
-    measures[index] = recipeInfo[`strMeasure${index + 1}`] || ' ';
+    measures[index] = recipeInfo[`strMeasure${index + 1}`];
   });
   const [recommendedMeals, setRecommendedMeals] = useState([]);
   // measures = Object.entries(recipe)
