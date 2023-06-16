@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import ShareIcon from './ShareIcon';
 import FavoriteIcon from './FavoriteIcon';
 
@@ -17,7 +18,8 @@ export default function RecipeInProfileCard({
 }) {
   const alcoOrNat = type === 'meal' ? nationality : alcoholicOrNot;
   const initialURL = `http://${window.location.href.split('/')[2]}`;
-  const validateRoute = (routeParam) => window.location.pathname.includes(routeParam);
+  const history = useHistory();
+  const validateRoute = (routeParam) => history.location.pathname.includes(routeParam);
   return (
     <li
       key={ id }
@@ -100,8 +102,3 @@ RecipeInProfileCard.propTypes = {
   }),
   type: PropTypes.string,
 }.isRequired;
-
-/* DoneCard.propTypes = {
-  id: PropTypes.number,
-  index: PropTypes.number,
-}.isRequired; */
