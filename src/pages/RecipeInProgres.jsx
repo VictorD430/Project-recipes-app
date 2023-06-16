@@ -46,10 +46,10 @@ export default function InProgress() {
   };
 
   useEffect(() => {
-    const savedIngredients = localStorage.getItem('inProgressRecipes');
-    if (savedIngredients) {
-      setCheckedIngredients(JSON.parse(savedIngredients));
-    }
+    const savedRecipes = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
+    const savedRecipeType = savedRecipes[type] || {};
+    const savedRecipeIngredients = savedRecipeType[id] || [];
+    setCheckedIngredients(savedRecipeIngredients);
   }, []);
 
   useEffect(() => {
@@ -66,7 +66,12 @@ export default function InProgress() {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('inProgressRecipes', JSON.stringify(checkedIngredients));
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
+    if (!inProgressRecipes[type]) {
+      inProgressRecipes[type] = {};
+    }
+    inProgressRecipes[type][id] = checkedIngredients;
+    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
   }, [checkedIngredients]);
 
   function toggleLabel(index) {
