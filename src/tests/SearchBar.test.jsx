@@ -1,4 +1,4 @@
-import { screen, waitFor } from '@testing-library/react';
+import { cleanup, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import { renderWithRouterAndRedux } from './helpers/renderWithRouterAndRedux';
@@ -21,6 +21,7 @@ describe('Testando a funcionalidade da SearchBar', () => {
   afterEach(() => {
     jest.restoreAllMocks();
     localStorage.clear();
+    cleanup();
   });
 
   it('Ao procurar por receitas através do ingrediente '
@@ -150,13 +151,15 @@ describe('Testando a funcionalidade da SearchBar', () => {
         .mockResolvedValueOnce(drinksIngredientSearchMock)
         .mockResolvedValueOnce(drinksFirstLetterSearchMock)
         .mockResolvedValueOnce(drinksNameSearchMock)
-        .mockRejectedValueOnce(drinksNameSearchMock),
+        .mockRejectedValueOnce(drinksNameSearchMock)
+        .mockResolvedValueOnce(mealsMock),
     });
     const { history } = renderWithRouterAndRedux(
       <App />,
       { initialEntries: ['/drinks'] },
     );
     const searchIcon = screen.getByRole('img', { name: /search-icon/i });
+    await screen.findByText('GG');
     userEvent.click(searchIcon);
     const searchInput = screen.getByRole('textbox');
     const ingredientInputRadio = screen.getByLabelText(/ingredient/i);

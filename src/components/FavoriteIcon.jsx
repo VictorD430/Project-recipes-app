@@ -38,6 +38,7 @@ export default function FavoriteIcon({ dados, testid = 'favorite-btn' }) {
     const upperCaseName = `${type[0].toUpperCase()}${type.substring(1)}`;
     const nameOfPropId = recipe[`id${upperCaseName}`]
       ? `id${upperCaseName}` : 'id';
+    console.log(recipe[nameOfPropId]);
     const stateLS = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
     if (isFavorite) {
       rmvFavorite(recipe[nameOfPropId], stateLS);
