@@ -56,17 +56,18 @@ export default function Meal({ recipe }) {
         </label>))}
       <h2>Instructions</h2>
       <p data-testid="instructions">{recipeInfo.strInstructions}</p>
-      {Object.keys(recipeInfo).filter((i) => i[0].includes('strYoutube'))
-        && (
-          <iframe
-            data-testid="video"
-            title={ recipeInfo.strMeal }
-            width="420"
-            height="315"
-            src={ recipeInfo.strYoutube.replace('watch?v=', 'embed/') }
-          />
-        ) }
-
+      <div className="player-container">
+        {Object.keys(recipeInfo).filter((i) => i[0].includes('strYoutube'))
+          && (
+            <iframe
+              data-testid="video"
+              title={ recipeInfo.strMeal }
+              width="420"
+              height="315"
+              src={ recipeInfo.strYoutube.replace('watch?v=', 'embed/') }
+            />
+          )}
+      </div>
       {
         recommendedDrinks.length > 0 ? (
           <div>

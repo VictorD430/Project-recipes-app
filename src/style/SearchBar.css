@@ -1,0 +1,50 @@
+.search-bar {
+  animation: fadeFromTop 1.5s ease;
+  background: #363636;
+  display: grid;
+  grid: repeat(3, 1fr) / 1fr;
+  padding: 25px;
+  place-items: center;
+  position: absolute;
+  top: 20vh;
+  width: 100%;
+  z-index: 20;
+}
+
+.search-bar > button {
+  height: 100%;
+  width: 100%;
+}
+
+.search-bar > label {
+  align-items: center;
+  display: grid;
+  flex-direction: row;
+  grid: 1fr / 1fr 5fr;
+  justify-content: center;
+  text-align: left;
+}
+
+.search-bar > input {
+  box-shadow: none;
+}
+
+@keyframes fadeFromTop {
+
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}
+
+@media screen and ( min-width : 768px ) {
+
+  .search-bar {
+    grid: 1fr / repeat(3, 1fr);
+  }
+}

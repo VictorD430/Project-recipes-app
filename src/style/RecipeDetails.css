@@ -1,0 +1,27 @@
+.recipe-page {
+  background: var(--secondary-color);
+  color: white;
+  height: 100%;
+  padding-bottom: 10vh;
+  width: 100%;
+}
+
+.player-container {
+  padding-top: 60.25%;
+  position: relative;
+}
+
+iframe {
+  left: 0;
+  position: absolute;
+  top: 0;
+}
+
+.start-btn {
+  background: var(--primary-color);
+  bottom: 0;
+  color: white;
+  height: 10%;
+  position: fixed;
+  width: 100%;
+}

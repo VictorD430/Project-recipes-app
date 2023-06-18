@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import isEmail from 'validator/lib/isEmail';
+import '../style/Login.css';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -19,8 +20,8 @@ export default function Login() {
   }, [email, password]);
 
   return (
-    <div>
-      <form onSubmit={ handleSubmit }>
+    <section className="login-page">
+      <form onSubmit={ handleSubmit } className="login-container">
         <label htmlFor="email">
           Email
         </label>
@@ -52,6 +53,6 @@ export default function Login() {
           Enter
         </button>
       </form>
-    </div>
+    </section>
   );
 }

@@ -1,0 +1,10 @@
+header {
+  background: var(--secondary-color);
+  color: white;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  padding: 5px;
+  place-items: center;
+  position: relative;
+  width: 100%;
+}

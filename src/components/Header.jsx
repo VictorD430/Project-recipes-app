@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom/cjs/react-router-dom.min';
 import ProfileIcon from './ProfileIcon';
 import SearchBar from './SearchBar';
+import '../style/Header.css';
 
 export default function Header() {
   return (

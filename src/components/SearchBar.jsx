@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import searchImage from '../images/searchIcon.svg';
 import { saveRecipe } from '../redux/actions';
 import { getMealsAPI, getDrinksAPI } from '../services/fetchAPI';
+import '../style/SearchBar.css';
 
 export default function SearchBar() {
   const dispatch = useDispatch();
@@ -72,6 +73,7 @@ export default function SearchBar() {
   return (
     <>
       <button
+        className="search-btn"
         style={ { border: 'none', backgroundColor: 'transparent' } }
         type="button"
         onClick={ () => setLetsSearch(!letsSearch) }
@@ -83,7 +85,7 @@ export default function SearchBar() {
         />
       </button>
       {letsSearch && (
-        <div>
+        <div className="search-bar">
           <input
             data-testid="search-input"
             type="text"
