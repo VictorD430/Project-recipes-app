@@ -7,6 +7,7 @@ import {
   useHistory,
 } from 'react-router-dom';
 import Header from '../components/Header';
+import '../style/Recipes.css';
 
 import { getDrinksAPI, getMealsAPI } from '../services/fetchAPI';
 import { saveRecipe } from '../redux/actions';
@@ -63,30 +64,32 @@ export default function Recipes() {
   return (
     <>
       <Header />
-      {categories.map(({ strCategory }, i) => (
-        i < +'5' && (
-          <button
-            key={ strCategory }
-            data-testid={ `${strCategory}-category-filter` }
-            onClick={ () => handleCategoryClick(strCategory) }
-          >
-            {strCategory}
-          </button>
-        )))}
-      <button
-        data-testid="All-category-filter"
-        onClick={ async () => {
-          if (history.location.pathname === '/meals') {
-            const apiFirstMeals = await getMealsAPI(firstItens);
-            dispatch(saveRecipe(apiFirstMeals));
-            return;
-          }
-          const apiFirstDrinks = await getDrinksAPI(firstItens);
-          dispatch(saveRecipe(apiFirstDrinks));
-        } }
-      >
-        All
-      </button>
+      <section className="categories">
+        {categories.map(({ strCategory }, i) => (
+          i < +'5' && (
+            <button
+              key={ strCategory }
+              data-testid={ `${strCategory}-category-filter` }
+              onClick={ () => handleCategoryClick(strCategory) }
+            >
+              {strCategory}
+            </button>
+          )))}
+        <button
+          data-testid="All-category-filter"
+          onClick={ async () => {
+            if (history.location.pathname === '/meals') {
+              const apiFirstMeals = await getMealsAPI(firstItens);
+              dispatch(saveRecipe(apiFirstMeals));
+              return;
+            }
+            const apiFirstDrinks = await getDrinksAPI(firstItens);
+            dispatch(saveRecipe(apiFirstDrinks));
+          } }
+        >
+          All
+        </button>
+      </section>
       <main>
         <ul style={ { display: 'flex', flexWrap: 'wrap' } }>
           <Switch>

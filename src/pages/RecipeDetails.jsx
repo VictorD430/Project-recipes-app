@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import { getDrinksAPI, getMealsAPI } from '../services/fetchAPI';
 import Meal from '../components/Meal';
 import Drink from '../components/Drink';
+import '../style/RecipeDetails.css';
 
 export default function Recipe() {
   const history = useHistory();
@@ -55,17 +56,15 @@ export default function Recipe() {
   const actualLocation = history.location.pathname;
   const btnElement = !IdExist && (
     <button
+      className="start-btn"
       data-testid="start-recipe-btn"
       onClick={ () => { history.push(`${actualLocation}/in-progress`); } }
-      style={ { position: 'fixed',
-        bottom: '0px',
-        left: '40px' } }
     >
       {btnTextElement}
     </button>
   );
   return (
-    <div>
+    <div className="recipe-page">
       {recipe.type === 'nao_definido' && <div>Loading...</div>}
       {recipe.type === 'meal' && <Meal recipe={ { ...recipe, isFavorite } } />}
       {recipe.type === 'drink' && <Drink recipe={ { ...recipe, isFavorite } } />}
